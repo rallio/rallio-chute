@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "kristen",
+    "username": "postgres",
     "password": null,
     "database": "chute_development",
     "host": "127.0.0.1",
