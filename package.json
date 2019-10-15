@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "node app/index.js",
+    "env": "cp .env-sample .env"
+  },
   "dependencies": {
     "aws-sdk": "^2.544.0",
     "dotenv": "^8.1.0",
