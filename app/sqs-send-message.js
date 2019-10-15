@@ -2,13 +2,7 @@
 require('dotenv').config();
 const AWS = require('aws-sdk');
 
-const hash = (argv = []) => {
-  return argv.reduce((hash, arg) => {
-    let parts = arg.split('=');
-    hash[parts[0]] = parts[1];
-    return hash;
-  }, {});
-};
+const hash = require('../util/hash');
 
 const {
   apiVersion = process.env.API_VERSION,
