@@ -1,8 +1,10 @@
 
 const {getSqs} = require('./consume-liked-photos');
 const {chuteMapping} = require('./mapping');
+let foo
 
 async function start () {
+  return
   const sqsResult = await getSqs();
   console.log("result from sqs", sqsResult)
   const mappedDataPromises = sqsResult.map(async (result) => {
