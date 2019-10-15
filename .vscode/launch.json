@@ -1,0 +1,48 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "runtimeArgs": ["--inspect-brk", "run-script", "start:dev"],
+      "program": "${workspaceFolder}/node_modules/nodemon/bin/nodemon",
+      "port": 9229
+    },
+    {
+      "name": "Launch via npm",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+          "run-script", "dev"
+      ],
+      "port": 9229
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "DEBUG",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run-script",
+        "debug"
+      ],
+      "port": 9229
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "nodemon",
+      "runtimeExecutable": "nodemon",
+      "program": "${workspaceFolder}/app/index.js",
+      "restart": true,
+      "console": "externalTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
