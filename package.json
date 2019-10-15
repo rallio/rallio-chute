@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "send-message": "node app/sqs-send-message.js",
     "start": "node app/index.js",
     "env": "cp .env-sample .env"
   },
