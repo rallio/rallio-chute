@@ -12,6 +12,6 @@ yarn
 ## Set up DB
 
 ```sh
-npx sequelize db:create
-npx sequelize db:migrate
+yarn db:create
+yarn db:migrate
 ```
