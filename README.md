@@ -5,7 +5,7 @@
 ## Install Deps
 
 ```sh
-brew install nodemon
+yarn --global add npx
 yarn
 ```
 

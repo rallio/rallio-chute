@@ -3,6 +3,7 @@ const {getSqs} = require('./consume-liked-photos');
 const {chuteMapping} = require('./mapping');
 const {saveRequest} = require('./save-request');
 const {sendMessage} = require('./send-message');
+const {removeFromSqs} = require('./remove-from-sqs');
 
 async function start () {
   const sqsResult = await getSqs();
@@ -30,6 +31,9 @@ async function start () {
   filteredMappedData.map(async (data)=> {
     const chuteResult = await sendMessage(data);
     console.log("result from chuteResult", chuteResult)
+    // if (chuteResult === true){
+    //   const chuteResult = await removeFromSqs(data);
+    // }
   })
   
   
