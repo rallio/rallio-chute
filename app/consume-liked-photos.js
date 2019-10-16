@@ -21,7 +21,7 @@ let getSqs = () => {
   var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
   var queueURL = process.env.QUE_URL;
   var params = {
-    MaxNumberOfMessages: 1,
+    MaxNumberOfMessages: 10,
     QueueUrl: queueURL,
     VisibilityTimeout: 0,
     WaitTimeSeconds: 0
