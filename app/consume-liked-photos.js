@@ -24,7 +24,7 @@ let getSqs = () => {
     MaxNumberOfMessages: 1,
     QueueUrl: queueURL,
     VisibilityTimeout: 0,
-    WaitTimeSeconds: 0
+    WaitTimeSeconds: Number(process.env.LONG_POLLING_WAIT_TIME)
   };
 
   return new Promise((resolve, reject) =>{

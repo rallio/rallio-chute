@@ -56,6 +56,14 @@
       "restart": true,
       "console": "externalTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug File",
+      "program": "${file}",
+      "runtimeArgs": ["--inspect-brk"],
+      "port": 9229
     }
   ]
 }
