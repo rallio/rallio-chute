@@ -1,9 +1,9 @@
 const Models = require('../models/index')
 
 async function saveRequest (data) {
-    const model = Models[Request]
+    const model = Models.Request
   console.log("in save request", model)
-  const request = Request.create({
+  const request = model.create({
     album: data.album,
     url: data.file_url,
     account_id: data.account_id,
