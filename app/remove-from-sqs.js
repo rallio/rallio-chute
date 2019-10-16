@@ -16,7 +16,7 @@ AWS.config.update({
   region: process.env.AWS_REGION
 });
 
-let removeFromSqs = () => {
+let removeFromSqs = (data) => {
 
   var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
   var queueURL = process.env.QUE_URL;
@@ -29,7 +29,7 @@ let removeFromSqs = () => {
   
   var deleteParams = {
     QueueUrl: queueURL,
-    ReceiptHandle: data.Messages[0].ReceiptHandle
+    ReceiptHandle: data.receiptHandle
   };
   sqs.deleteMessage(deleteParams, function(err, data) {
     if (err) {

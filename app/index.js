@@ -18,7 +18,8 @@ async function start () {
           file_url: result.file_url,
           acocunt_id: result.account_id,
           franchisor_id: result.franchisor_id,
-          photo_id: result.photo_id
+          photo_id: result.photo_id,
+          receiptHandle: result.receiptHandle
         }
     } 
   })
@@ -30,10 +31,10 @@ async function start () {
   // })
   filteredMappedData.map(async (data)=> {
     const chuteResult = await sendMessage(data);
-    console.log("result from chuteResult", chuteResult)
-    // if (chuteResult === true){
-    //   const chuteResult = await removeFromSqs(data);
-    // }
+    console.log("**********result from chuteResult", chuteResult)
+    if (chuteResult === true){
+      const removedResult = await removeFromSqs(data);
+    }
   })
   
   

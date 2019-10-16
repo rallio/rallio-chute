@@ -21,7 +21,7 @@ let getSqs = () => {
   var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
   var queueURL = process.env.QUE_URL;
   var params = {
-    MaxNumberOfMessages: 10,
+    MaxNumberOfMessages: 1,
     QueueUrl: queueURL,
     VisibilityTimeout: 0,
     WaitTimeSeconds: 0
@@ -34,6 +34,7 @@ let getSqs = () => {
         reject(err)
       } else if (data.Messages) {
         console.log("######data.Messages", data.Messages)
+        const receiptHandle = data.Messages[0].ReceiptHandle
         const likedPhoto = JSON.parse(data.Messages[0].Body);
         // console.log("likedPhoto", likedPhoto)
         const tags = likedPhoto.tags.split(',');
@@ -44,7 +45,8 @@ let getSqs = () => {
             file_url: likedPhoto.url,
             account_id: likedPhoto.account_id,
             franchisor_id: likedPhoto.franchisor_id,
-            photo_id: likedPhoto.photo_id
+            photo_id: likedPhoto.photo_id,
+            receiptHandle: receiptHandle
           }
         });
         resolve(mappedTags);
