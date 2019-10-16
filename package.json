@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "test": "PORT=3001; jest --config --runInBand",
     "send-message": "node app/sqs-send-message.js",
     "db:create": "npx sequelize db:create",
     "db:migrate": "npx sequelize db:migrate",
@@ -26,6 +27,7 @@
     "babel-jest": "^24.9.0",
     "eslint": "^6.5.1",
     "faker": "^4.1.0",
+    "jest": "^24.9.0",
     "nodemon": "^1.19.3"
   }
 }
