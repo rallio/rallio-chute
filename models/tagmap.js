@@ -1,4 +1,5 @@
-'use strict';
+const faker = require('faker');
+
 module.exports = (sequelize, DataTypes) => {
   const TagMap = sequelize.define('TagMap', {
     album_code: DataTypes.INTEGER,
