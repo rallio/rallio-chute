@@ -38,7 +38,7 @@
       "type": "node",
       "request": "launch",
       "name": "nodemon",
-      "runtimeExecutable": "nodemon",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/nodemon/bin/nodemon.js",
       "program": "${workspaceFolder}/app/index.js",
       "restart": true,
       "console": "externalTerminal",
