@@ -16,3 +16,9 @@ npx sequelize db:create
 npx sequelize db:migrate
 npx sequelize db:seed:all
 ```
+
+## Send a message to the queue
+
+```sh
+yarn send-message MessageBody="Tacos are delicious."
+```
