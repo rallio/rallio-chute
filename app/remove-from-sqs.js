@@ -17,7 +17,7 @@ AWS.config.update({
 });
 
 let removeFromSqs = (data) => {
-
+console.log("###data", data)
   var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
   var queueURL = process.env.QUE_URL;
   var params = {
