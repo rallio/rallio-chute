@@ -4,6 +4,9 @@
   "main": "index.js",
   "scripts": {
     "send-message": "node app/sqs-send-message.js",
+    "db:create": "npx sequelize db:create",
+    "db:migrate": "npx sequelize db:migrate",
+    "db:seed:all": "npx sequelize db:seed:all",
     "start": "node app/index.js",
     "env": "cp .env-sample .env"
   },
@@ -13,10 +16,16 @@
     "express": "^4.17.1",
     "node-fetch": "^2.6.0",
     "pg": "^7.12.1",
+    "request": "^2.88.0",
     "sequelize": "^5.19.4",
     "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/preset-env": "^7.6.3",
+    "babel-jest": "^24.9.0",
+    "faker": "^4.1.0",
+    "eslint": "^6.5.1",
     "nodemon": "^1.19.3"
   }
 }

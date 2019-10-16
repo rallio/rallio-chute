@@ -5,7 +5,7 @@
 ## Install Deps
 
 ```sh
-brew install nodemon
+yarn --global add npx
 yarn
 ```
 
@@ -14,4 +14,5 @@ yarn
 ```sh
 npx sequelize db:create
 npx sequelize db:migrate
+npx sequelize db:seed:all
 ```

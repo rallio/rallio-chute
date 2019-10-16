@@ -1,37 +1,42 @@
 
 const {getSqs} = require('./consume-liked-photos');
 const {chuteMapping} = require('./mapping');
+const {saveRequest} = require('./save-request');
+const {sendMessage} = require('./send-message');
+const {removeFromSqs} = require('./remove-from-sqs');
 
 async function start () {
   const sqsResult = await getSqs();
-  console.log("result from sqs", sqsResult)
+  // console.log("result from sqs", sqsResult.length)
   const mappedDataPromises = sqsResult.map(async (result) => {
     const mappedResult = await chuteMapping(result, 'TagMap', 'tag');
-    console.log("$$$$$result from mapped", mappedResult)
+    // console.log("$$$$$result from mapped",mappedResult.length, mappedResult)
     if (mappedResult.length > 0) {
-      return mappedResult.then((value) => {
-        console.log("@@@@@VALUE!!!", value)
+        // console.log("@@@@@VALUE!!!", mappedResult[0].album_code,result.file_url )
         return {
-          album: value.dataValues.album_code,
+          album: mappedResult[0].album_code,
           file_url: result.file_url,
           acocunt_id: result.account_id,
           franchisor_id: result.franchisor_id,
           photo_id: result.photo_id
         }
-      })
-    } else {
-      return {}
-    }
+    } 
   })
-  // const mappedResult = await chuteMapping(sqsResult);
   const mappedData = await Promise.all(mappedDataPromises)
-  console.log("result from mappedData", mappedData)
-  // if (mappedResult !== false) {
-  //   console.log("continue")
-  //   const savedToDatabaseResult = await savedToDatabase(mappedResult);
-  //   const chuteResult = await sendMessage(sqsResult);
-  //   console.log("result from chuteResult", chuteResult)
-  // }
+  console.log("^^^^^^result from mappedData", mappedData.filter(Boolean))
+  const filteredMappedData = mappedData.filter(Boolean)
+  // filteredMappedData.map(async (data)=> {
+  //   const savedToDatabaseResult = await saveRequest(data);
+  // })
+  filteredMappedData.map(async (data)=> {
+    const chuteResult = await sendMessage(data);
+    console.log("result from chuteResult", chuteResult)
+    // if (chuteResult === true){
+    //   const chuteResult = await removeFromSqs(data);
+    // }
+  })
+  
+  
 }
-debugger
+// debugger
 start()

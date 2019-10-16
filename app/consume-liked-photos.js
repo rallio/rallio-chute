@@ -4,7 +4,7 @@ const {
 } = require('./send-message');
 const {
   savedToDatabase
-} = require('./saveRequest');
+} = require('./save-request');
 const {
   chuteMapping
 } = require('./mapping');
@@ -33,7 +33,7 @@ let getSqs = () => {
         console.log("Receive Error", err);
         reject(err)
       } else if (data.Messages) {
-        // console.log("data.Messages", data.Messages)
+        console.log("######data.Messages", data.Messages)
         const likedPhoto = JSON.parse(data.Messages[0].Body);
         // console.log("likedPhoto", likedPhoto)
         const tags = likedPhoto.tags.split(',');
