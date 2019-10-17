@@ -43,7 +43,7 @@ async function start () {
       }
     })
     const mappedLocation = await chuteMapping(tagResult[0], 'LocationMap', 'account_id')
-  
+
     const location = {
             album: mappedLocation[0].album_code,
             file_url: tagResult[0].file_url,
@@ -54,14 +54,14 @@ async function start () {
             message_id: tagResult[0].message_id,
             type: 'location'
     }
-    
+
     const mappedData = await Promise.all(mappedDataPromises)
-    mappedData.push(location)  
+    mappedData.push(location)
     const filteredMappedData = mappedData.filter(Boolean)
 
     const sendToChutePromises = filteredMappedData.map(async (data)=> {
       const savedToDatabaseResult = await saveRequest(data);
-     
+
       const newData = {
         album: data.album,
         file_url: data.file_url,
@@ -74,7 +74,7 @@ async function start () {
         id: savedToDatabaseResult.id
       }
       const chuteResult = await sendMessage(newData);
-     
+
       if (chuteResult !== true){
         return reject("There was no chute result")
       }
@@ -85,12 +85,14 @@ async function start () {
     const resultChutePromise = await Promise.all(sendToChutePromises)
     const flattened = flatten(resultChutePromise)
     const allGood = flattened.every(Boolean)
- 
+
     if (!allGood) {
       return Promise.reject('this stays in the queue')
     }
-  
-    const removedResult = await removeFromSqs(filteredMappedData[0].receiptHandle);
+
+    const removedResult = await removeFromSqs({
+      ReceiptHandle: filteredMappedData[0].receiptHandle
+    });
     console.log("removedResult",removedResult)
   }
     })
@@ -117,7 +119,7 @@ async function start () {
   //     }
   //   })
   //   const mappedLocation = await chuteMapping(sqsResult[0], 'LocationMap', 'account_id')
-  
+
   //   const location = {
   //           album: mappedLocation[0].album_code,
   //           file_url: sqsResult[0].file_url,
@@ -128,14 +130,14 @@ async function start () {
   //           message_id: sqsResult[0].message_id,
   //           type: 'location'
   //   }
-    
+
   //   const mappedData = await Promise.all(mappedDataPromises)
-  //   mappedData.push(location)  
+  //   mappedData.push(location)
   //   const filteredMappedData = mappedData.filter(Boolean)
 
   //   const sendToChutePromises = filteredMappedData.map(async (data)=> {
   //     const savedToDatabaseResult = await saveRequest(data);
-     
+
   //     const newData = {
   //       album: data.album,
   //       file_url: data.file_url,
@@ -148,7 +150,7 @@ async function start () {
   //       id: savedToDatabaseResult.id
   //     }
   //     const chuteResult = await sendMessage(newData);
-     
+
   //     if (chuteResult !== true){
   //       return reject("There was no chute result")
   //     }
@@ -159,19 +161,19 @@ async function start () {
   //   const resultChutePromise = await Promise.all(sendToChutePromises)
   //   const flattened = flatten(resultChutePromise)
   //   const allGood = flattened.every(Boolean)
- 
+
   //   if (!allGood) {
   //     return Promise.reject('this stays in the queue')
   //   }
-  
+
   //   const removedResult = await removeFromSqs(filteredMappedData[0].receiptHandle);
   //   console.log("removedResult",removedResult)
   // }
-  
+
 }
 async function retry (id, newReceipt) {
   const getFalseResult = await getFalse(id)
-  
+
   const sendToChutePromises = getFalseResult.map(async (data)=> {
     const chuteResult = await sendMessage(data);
 
@@ -182,13 +184,13 @@ async function retry (id, newReceipt) {
     return successData
   })
   const resultChutePromise = await Promise.all(sendToChutePromises)
-  const flattened = flatten(resultChutePromise)   
+  const flattened = flatten(resultChutePromise)
   const allGood = flattened.every(Boolean)
- 
+
   if (!allGood) {
     return Promise.reject('this stays in the queue')
   }
-  
+
   const removedResult = await removeFromSqs(newReceipt);
   console.log("removedResult",removedResult)
 }

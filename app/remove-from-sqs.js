@@ -8,9 +8,10 @@ AWS.config.update({
   region: process.env.AWS_REGION
 });
 
-async function removeFromSqs(data) {
-  ReceiptHandle = data, // required
+const removeFromSqs = ({
+  ReceiptHandle = '', // required
   QueueUrl = process.env.QUE_URL
+} = {}) => {
   return new Promise((resolve, reject) => {
     if (!ReceiptHandle) {
       return reject({ message: 'missing ReceiptHandle' });
@@ -18,8 +19,7 @@ async function removeFromSqs(data) {
 
     const handleDelete = (err, data) => {
       if (err) {
-       console.error(err);
-       return reject({ message: err });
+        return reject({ message: err });
       }
 
       resolve(data);
@@ -30,7 +30,6 @@ async function removeFromSqs(data) {
 
       sqs.deleteMessage({ QueueUrl, ReceiptHandle }, handleDelete);
     } catch(e) {
-      console.error(e);
       reject({ message: e });
     }
   });
