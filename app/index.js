@@ -82,6 +82,7 @@ async function start () {
     }
   
     const removedResult = await removeFromSqs(filteredMappedData[0].receiptHandle);
+    console.log("removedResult",removedResult)
   }
   
 }
@@ -106,6 +107,7 @@ async function retry (id, newReceipt) {
   }
   
   const removedResult = await removeFromSqs(newReceipt);
+  console.log("removedResult",removedResult)
 }
 
 start()
