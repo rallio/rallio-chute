@@ -3,6 +3,7 @@ const longPoller = require('./long-poller');
 const { removeFromSqs } = require('./remove-from-sqs');
 
 const sendToChute = (tag, message) => {
+  // todo HELP
   console.log(`simulate sending ${tag} ${message.ReceiptHandle.slice(0, 5)}`);
   return new Promise((resolve) =>
     // process tag, if there isnt already a tag for this message
@@ -11,7 +12,7 @@ const sendToChute = (tag, message) => {
 }
 
 const handleChuteFailure = () => {
-  // ... todo
+  // todo HELP
   // update the message entry with success: `false`
   // return true
   // debugger
