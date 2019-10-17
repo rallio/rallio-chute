@@ -10,7 +10,8 @@ async function saveRequest (data) {
     franchisor_id: data.franchisor_id,
     photo_id: data.photo_id,
     type: data.type,
-    receipt_handle: data.receiptHandle
+    receipt_handle: data.receiptHandle,
+    message_id: data.message_id
   });
   console.log("REQUEST", request)
   return request

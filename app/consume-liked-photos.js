@@ -24,7 +24,7 @@ let getSqs = () => {
     MaxNumberOfMessages: 1,
     QueueUrl: queueURL,
     VisibilityTimeout: 0,
-    WaitTimeSeconds: Number(process.env.LONG_POLLING_WAIT_TIME)
+    // WaitTimeSeconds: Number(process.env.LONG_POLLING_WAIT_TIME)
   };
 
   return new Promise((resolve, reject) =>{
@@ -34,6 +34,7 @@ let getSqs = () => {
         reject(err)
       } else if (data.Messages) {
         console.log("######data.Messages", data.Messages)
+        const message_id = data.Messages[0].MessageId
         const receiptHandle = data.Messages[0].ReceiptHandle
         const likedPhoto = JSON.parse(data.Messages[0].Body);
         // console.log("likedPhoto", likedPhoto)
@@ -46,7 +47,8 @@ let getSqs = () => {
             account_id: likedPhoto.account_id,
             franchisor_id: likedPhoto.franchisor_id,
             photo_id: likedPhoto.photo_id,
-            receiptHandle: receiptHandle
+            receiptHandle: receiptHandle,
+            message_id: message_id
           }
         });
         resolve(mappedTags);
