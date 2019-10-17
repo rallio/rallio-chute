@@ -1,7 +1,13 @@
 require('dotenv').config();
 
-const sqs = require('./sqs');
-const sqsInstance = sqs();
+
+var AWS = require('aws-sdk');
+AWS.config.update({
+  accessKeyId: process.env.AWS_SQS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SQS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION
+}); 
+var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 module.exports = ({
   MaxNumberOfMessages = 10,
@@ -19,7 +25,7 @@ module.exports = ({
   };
 
   return new Promise((resolve, reject) => {
-    sqsInstance.receiveMessage(params, (err, data) => {
+    sqs.receiveMessage(params, (err, data) => {
       if (err) {
         return reject(err);
       }

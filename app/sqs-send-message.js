@@ -1,11 +1,16 @@
 /* eslint-disable no-console */
 require('dotenv').config();
-const sqs = require('./sqs');
+
 const faker = require('faker');
 
 const hash = require('../util/hash');
-
-const sqsInstance = sqs();
+var AWS = require('aws-sdk');
+AWS.config.update({
+  accessKeyId: process.env.AWS_SQS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SQS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION
+}); 
+var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 const defaultPhoto = {
   url: faker.image.imageUrl(),
@@ -28,7 +33,7 @@ promises.fill();
 
 const messagePromises = promises.map(() => {
   return new Promise((resolve, reject) => {
-    sqsInstance.sendMessage({ DelaySeconds, MessageBody, QueueUrl }, (err, response) => {
+    sqs.sendMessage({ DelaySeconds, MessageBody, QueueUrl }, (err, response) => {
       if (err) {
         console.error(err);
         reject(err);
