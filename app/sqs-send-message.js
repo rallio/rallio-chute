@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 require('dotenv').config();
-const AWS = require('aws-sdk');
+const sqs = require('./sqs');
 const faker = require('faker');
 
 const hash = require('../util/hash');
@@ -14,24 +14,11 @@ const defaultPhoto = {
 }
 
 const {
-  apiVersion = process.env.API_VERSION,
   DelaySeconds = 0,
-  endpoint = process.env.AWS_DB_URL,
   MessageBody = JSON.stringify(defaultPhoto),
   QueueUrl = process.env.QUE_URL,
   numberOfMessagesToSend = 1
 } = hash(process.argv);
-
-if (endpoint) {
-  AWS.config.update({ endpoint });
-}
-AWS.config.update({
-  accessKeyId: process.env.AWS_SQS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SQS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
-});
-
-const sqs = new AWS.SQS({ apiVersion });
 
 let promises = [];
 promises.length = numberOfMessagesToSend;
