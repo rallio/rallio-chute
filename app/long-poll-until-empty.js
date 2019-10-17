@@ -25,7 +25,8 @@ const handleMessages = async (messages) => {
     const { tags = [] } = message;
 
     const processedTags = Promise.all(tags.map(tag => {
-      return sendToChute(tag, message).catch(handleChuteFailure)
+      debugger
+      return sendToChute(tag, message)
     }));
     return processedTags.then(() => {
       return removeMessageFromQueue(message);
@@ -69,15 +70,15 @@ const pollPromise = () => longPoller().then(response => {
 
 const start = async () => {
   let promises = [Promise.resolve()];
-  debugger
+  // debugger
 
   while(await pollPromise() > 0) {
-    debugger
+    // debugger
     promises.push(pollPromise());
   }
-  debugger
+  // debugger
   Promise.all(promises).then(() => {
-    debugger
+    // debugger
     console.log('The queue is empty');
   });
 }
