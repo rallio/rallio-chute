@@ -8,10 +8,9 @@ AWS.config.update({
   region: process.env.AWS_REGION
 });
 
-const removeFromSqs = ({
-  ReceiptHandle = '', // required
+async function removeFromSqs(data) {
+  ReceiptHandle = data, // required
   QueueUrl = process.env.QUE_URL
-} = {}) => {
   return new Promise((resolve, reject) => {
     if (!ReceiptHandle) {
       return reject({ message: 'missing ReceiptHandle' });

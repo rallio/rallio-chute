@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     photo_id: DataTypes.INTEGER,
     type: DataTypes.STRING,
     receipt_handle: DataTypes.STRING,
+    message_id: DataTypes.STRING,
     request_success: DataTypes.BOOLEAN
   }, {});
   Request.associate = function(models) {
