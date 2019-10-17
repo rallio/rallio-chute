@@ -1,13 +1,14 @@
 require('dotenv').config();
 
+const  AWS = require('aws-sdk');
 
-var AWS = require('aws-sdk');
 AWS.config.update({
   accessKeyId: process.env.AWS_SQS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SQS_SECRET_ACCESS_KEY,
   region: process.env.AWS_REGION
-}); 
-var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+});
+
+const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 module.exports = ({
   MaxNumberOfMessages = 10,
@@ -39,7 +40,7 @@ module.exports = ({
       }
 
       if (!messages) {
-        return;
+        return reject({ data, message: 'no messages' });
       }
 
       return resolve(messages);
