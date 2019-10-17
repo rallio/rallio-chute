@@ -5,6 +5,8 @@ const faker = require('faker');
 
 const hash = require('../util/hash');
 
+const sqsInstance = sqs();
+
 const defaultPhoto = {
   url: faker.image.imageUrl(),
   account_id: 51,
@@ -26,7 +28,7 @@ promises.fill();
 
 const messagePromises = promises.map(() => {
   return new Promise((resolve, reject) => {
-    sqs.sendMessage({ DelaySeconds, MessageBody, QueueUrl }, (err, response) => {
+    sqsInstance.sendMessage({ DelaySeconds, MessageBody, QueueUrl }, (err, response) => {
       if (err) {
         console.error(err);
         reject(err);

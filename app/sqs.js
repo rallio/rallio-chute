@@ -20,4 +20,5 @@ if (region) {
   AWS.config.update({ region });
 }
 
-module.exports = new AWS.SQS({ apiVersion });
+module.exports = () =>
+  new AWS.SQS({ apiVersion });

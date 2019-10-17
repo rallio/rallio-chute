@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const sqs = require('./sqs');
+const sqsInstance = sqs();
 
 module.exports = ({
   MaxNumberOfMessages = 10,
@@ -18,7 +19,7 @@ module.exports = ({
   };
 
   return new Promise((resolve, reject) => {
-    sqs.receiveMessage(params, (err, data) => {
+    sqsInstance.receiveMessage(params, (err, data) => {
       if (err) {
         return reject(err);
       }
