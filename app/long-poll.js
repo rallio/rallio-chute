@@ -5,6 +5,15 @@ const { removeFromSqs } = require('./remove-from-sqs');
 const mockAPI = (data) => new Promise(resolve => setTimeout(() => resolve({message: '✅', data})), 100);
 
 
+let r = emptyTheQueue()
+
+
+if (r > 0) {
+  while(emptyTheQueue()) {
+
+  }
+}
+
 const emptyTheQueue = () => {
   return new Promise((resolve, reject) => {
     const recursiveFn = (count) => {
@@ -14,6 +23,8 @@ const emptyTheQueue = () => {
       }
 
       // recursive case
+
+      recursiveFn
       // let numberOfProcessedMessages = 3000;
 
       try {

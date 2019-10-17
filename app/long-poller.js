@@ -26,24 +26,13 @@ module.exports = ({
   };
 
   return new Promise((resolve, reject) => {
+    console.log('looking for up to 10 messages...', params);
     sqs.receiveMessage(params, (err, data) => {
       if (err) {
         return reject(err);
       }
 
-      let messages;
-
-      try {
-        messages = data.Messages
-      } catch(e) {
-        reject({ data, message: 'unable to parse messages' });
-      }
-
-      if (!messages) {
-        return reject({ data, message: 'no messages' });
-      }
-
-      return resolve(messages);
+      return resolve(data);
     });
   })
 };
