@@ -5,7 +5,7 @@ async function getFalse (id) {
      const record = model.findAll({
       where: {
         receipt_handle: id,
-        request_success: false
+        request_success: null
       },
       raw: true,
     })
