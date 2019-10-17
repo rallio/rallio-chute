@@ -33,7 +33,7 @@ module.exports = ({
       let messages;
 
       try {
-        messages = data.Messages.map(({ Body }) => JSON.parse(Body));
+        messages = data.Messages
       } catch(e) {
         reject({ data, message: 'unable to parse messages' });
       }
