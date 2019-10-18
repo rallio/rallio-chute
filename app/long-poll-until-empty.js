@@ -10,7 +10,7 @@ const handleMessages = async (messages) => {
     const { tags = [] } = message;
 
     const processedTags = Promise.all(tags.split(",").map(tag => {
-    console.log("tag, message", tag, message)
+   
     const messageObject = {
       tag: tag,
       file_url: message.url,
@@ -20,14 +20,37 @@ const handleMessages = async (messages) => {
       receiptHandle: message.ReceiptHandle,
       message_id: message.MessageId,
       type: 'tag',
-      db: 'TagMap'
+      db: 'TagMap',
+      pk: tag,
+      pkName: 'tag'
     }
-    console.log("message obj", messageObject)
+    
     return sendToChute(messageObject)
     }));
-    return processedTags.then(() => {
+    const locationObject = {
+      tag: null,
+      file_url: message.url,
+      account_id: message.account_id,
+      franchisor_id: message.franchisor_id,
+      photo_id: message.photo_id,
+      receiptHandle: message.ReceiptHandle,
+      message_id: message.MessageId,
+      type: 'location',
+      db: 'LocationMap',
+      pk: message.account_id,
+      pkName: 'account_id'
+    }
+    
+    const processedLocation = sendToChute(locationObject);
+    
+    const promises = [
+    processedTags.then(() => {
       return removeMessageFromQueue(message);
-    });
+    }),
+    processedLocation
+  ]
+
+  return Promise.all(promises);
   })
 
   const messagesProcessed = await Promise.all(messagesProcessedPromise);
@@ -67,20 +90,6 @@ const pollPromise = () => longPoller().then(response => {
   return messagesProcessedPromise.then(messages => messages.length);
 })
 
-// const start = async () => {
-//   let promises = [Promise.resolve()];
-//   // debugger
-
-//   while(await pollPromise() > 0) {
-//     // debugger
-//     promises.push(pollPromise());
-//   }
-//   // debugger
-//   Promise.all(promises).then(() => {
-//     // debugger
-//     console.log('The queue is empty');
-//   });
-// }
 let pollCount = 0
 let processedMessagesCount = 0
 const start = async () => {
