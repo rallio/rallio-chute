@@ -6,6 +6,13 @@
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
+  "development": {
+    "username": "postgres",
+    "password": null,
+    "database": "chute_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
   "test": {
     "username": "kristen",
     "password": null,
@@ -15,7 +22,7 @@
   },
   "production": {
     "username": "kristen",
-    "password": null,
+    "password": "chute_production",
     "database": "chute_production",
     "host": "127.0.0.1",
     "dialect": "postgres"
