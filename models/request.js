@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.STRING,
     receipt_handle: DataTypes.STRING,
     message_id: DataTypes.STRING,
-    request_success: DataTypes.BOOLEAN
+    request_success: DataTypes.BOOLEAN,
+    tag: DataTypes.STRING
   }, {});
   Request.associate = function(models) {
     // associations can be defined here

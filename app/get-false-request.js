@@ -1,11 +1,56 @@
 const Models = require('../models/index')
-async function getFalse (id) {
+async function getFalse (message_id, tag, type, account_id) {
+    console.log("****IN get false ", message_id)
+    const model = Models.Request
+    if(type === 'location'){
+      const record = model.findOne({
+        where: {
+          message_id: message_id,
+          request_success: null,
+          account_id: account_id
+        },
+        raw: true,
+      })
+       
+      return record
+    }else{
+      const record = model.findOne({
+        where: {
+          message_id: message_id,
+          request_success: null,
+          tag: tag
+        },
+        raw: true,
+      })
+       
+      return record
+    }
+   
+
+
+  }
+
+  async function getTrue(id){
     console.log("****IN get false ", id)
     const model = Models.Request
-     const record = model.findAll({
+  
+      const record = model.findAll({
+        where: {
+          message_id: id,
+          request_success: true,
+         },
+        raw: true,
+      })
+       
+      return record
+  }
+
+  async function getAll(id){
+    const model = Models.Request
+  
+    const record = model.findAll({
       where: {
-        receipt_handle: id,
-        request_success: null
+        message_id: id,
       },
       raw: true,
     })
@@ -13,4 +58,4 @@ async function getFalse (id) {
     return record
   }
   
-  module.exports = { getFalse };
+  module.exports = { getFalse, getTrue, getAll };

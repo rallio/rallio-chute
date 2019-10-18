@@ -2,13 +2,22 @@
 const longPoller = require('./long-poller');
 const { removeFromSqs } = require('./remove-from-sqs');
 const { sendToChute } = require('./send-to-chute');
-
-const removeMessageFromQueue = message => removeFromSqs(message);
-
+const {checkDB} = require('./check-existing');
+// const removeMessageFromQueue = message => removeFromSqs(message);
+async function checkRetry(messageIdExists){
+  if (messageIdExists.length > 0){
+    return true
+  }else{
+    return false
+  }
+}
 const handleMessages = async (messages) => {
   const messagesProcessedPromise = messages.map(async (message) => {
     const { tags = [] } = message;
-
+    const messageIdExists = await checkDB(message.MessageId)
+    console.log('message existis', messageIdExists)
+    const retry = await checkRetry(messageIdExists)
+    console.log("RETRY!!!!!!!", retry)
     const processedTags = Promise.all(tags.split(",").map(tag => {
    
     const messageObject = {
@@ -22,7 +31,8 @@ const handleMessages = async (messages) => {
       type: 'tag',
       db: 'TagMap',
       pk: tag,
-      pkName: 'tag'
+      pkName: 'tag',
+      retry: retry
     }
     
     return sendToChute(messageObject)
@@ -38,14 +48,15 @@ const handleMessages = async (messages) => {
       type: 'location',
       db: 'LocationMap',
       pk: message.account_id,
-      pkName: 'account_id'
+      pkName: 'account_id',
+      retry:retry
     }
     
     const processedLocation = sendToChute(locationObject);
     
     const promises = [
     processedTags.then(() => {
-      return removeMessageFromQueue(message);
+      return true
     }),
     processedLocation
   ]
