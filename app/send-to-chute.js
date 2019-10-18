@@ -10,6 +10,7 @@ async function sendToChute (message) {
     if (mappedResult.length > 0) {
       const mappedData =  {
         album: mappedResult[0].album_code,
+        // album: 2691079,
         file_url: message.file_url,
         account_id: message.account_id,
         franchisor_id: message.franchisor_id,
