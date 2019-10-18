@@ -11,7 +11,8 @@ async function saveRequest (data) {
     photo_id: data.photo_id,
     type: data.type,
     receipt_handle: data.receiptHandle,
-    message_id: data.message_id
+    message_id: data.message_id,
+    tag: data.tag
   });
   console.log("REQUEST", request)
   return request
