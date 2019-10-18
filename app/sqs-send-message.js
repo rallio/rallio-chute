@@ -17,7 +17,7 @@ const defaultPhoto = {
   account_id: 51,
   franchisor_id: null,
   photo_id: 89,
-  tags: [faker.random.word(), faker.random.word()]
+  tags: [faker.random.word(), faker.random.word()].join(',')
 }
 
 const {

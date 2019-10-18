@@ -5,14 +5,14 @@ async function chuteMapping (data, modelName, pkName) {
   const model = Models[modelName]
   const pk = data[pkName]
 
-// console.log("MODEL", model)
+console.log("#####MODEL", model)
   const record = model.findAll({
     where: {
       [pkName]: pk
     },
     raw: true,
   });
-  // console.log('********record', record)
+  console.log('######record', record)
   return record
 }
 

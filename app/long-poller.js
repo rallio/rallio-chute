@@ -11,7 +11,7 @@ AWS.config.update({
 const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 module.exports = ({
-  MaxNumberOfMessages = 10,
+  MaxNumberOfMessages = 1,
   QueueUrl = process.env.QUE_URL,
   VisibilityTimeout = 0,
   WaitTimeSeconds = process.env.LONG_POLLING_WAIT_TIME

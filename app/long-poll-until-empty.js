@@ -1,22 +1,7 @@
 /* eslint-disable no-console */
 const longPoller = require('./long-poller');
 const { removeFromSqs } = require('./remove-from-sqs');
-
-const sendToChute = (tag, message) => {
-  // todo HELP
-  console.log(`simulate sending ${tag} ${message.ReceiptHandle.slice(0, 5)}`);
-  return new Promise((resolve) =>
-    // process tag, if there isnt already a tag for this message
-    setTimeout(() => {resolve(1)}, 500)
-  ).catch(handleChuteFailure)
-}
-
-const handleChuteFailure = () => {
-  // todo HELP
-  // update the message entry with success: `false`
-  // return true
-  // debugger
-}
+const { sendToChute } = require('./send-to-chute');
 
 const removeMessageFromQueue = message => removeFromSqs(message);
 
@@ -24,9 +9,21 @@ const handleMessages = async (messages) => {
   const messagesProcessedPromise = messages.map(async (message) => {
     const { tags = [] } = message;
 
-    const processedTags = Promise.all(tags.map(tag => {
-      debugger
-      return sendToChute(tag, message)
+    const processedTags = Promise.all(tags.split(",").map(tag => {
+    console.log("tag, message", tag, message)
+    const messageObject = {
+      tag: tag,
+      file_url: message.url,
+      account_id: message.account_id,
+      franchisor_id: message.franchisor_id,
+      photo_id: message.photo_id,
+      receiptHandle: message.ReceiptHandle,
+      message_id: message.MessageId,
+      type: 'tag',
+      db: 'TagMap'
+    }
+    console.log("message obj", messageObject)
+    return sendToChute(messageObject)
     }));
     return processedTags.then(() => {
       return removeMessageFromQueue(message);
@@ -48,9 +45,9 @@ const pollPromise = () => longPoller().then(response => {
   let mappedMessages
   try {
     mappedMessages = Messages.map((m) => {
-      const { ReceiptHandle } = m;
+      const { ReceiptHandle, MessageId } = m;
 
-      return { ...JSON.parse(m.Body), ReceiptHandle };
+      return { ...JSON.parse(m.Body), ReceiptHandle, MessageId };
     })
   } catch (e) {
     console.error('no body')
@@ -64,23 +61,34 @@ const pollPromise = () => longPoller().then(response => {
   }
   //
   const messagesProcessedPromise = handleMessages(mappedMessages).catch(console.error);
-
+  messagesProcessedPromise.then(messages => messages.length).then(count => {
+    processedMessagesCount += count;
+  });
   return messagesProcessedPromise.then(messages => messages.length);
 })
 
-const start = async () => {
-  let promises = [Promise.resolve()];
-  // debugger
+// const start = async () => {
+//   let promises = [Promise.resolve()];
+//   // debugger
 
+//   while(await pollPromise() > 0) {
+//     // debugger
+//     promises.push(pollPromise());
+//   }
+//   // debugger
+//   Promise.all(promises).then(() => {
+//     // debugger
+//     console.log('The queue is empty');
+//   });
+// }
+let pollCount = 0
+let processedMessagesCount = 0
+const start = async () => {
   while(await pollPromise() > 0) {
-    // debugger
-    promises.push(pollPromise());
+    console.log('were still waiting...', ++pollCount)
   }
-  // debugger
-  Promise.all(promises).then(() => {
-    // debugger
-    console.log('The queue is empty');
-  });
+
+  console.log('The queue is empty', {pollCount, processedMessagesCount});
 }
 
 start()
