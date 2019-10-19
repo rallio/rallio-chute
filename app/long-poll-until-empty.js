@@ -52,8 +52,7 @@ const handleMessages = async (messages) => {
       retry:retry
     }
     
-    const processedLocation = sendToChute(locationObject);
-    
+    const processedLocation = sendToChute(locationObject); 
     const promises = [
     processedTags.then(() => {
       return true
