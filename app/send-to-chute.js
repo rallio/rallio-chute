@@ -7,7 +7,7 @@ const {getFalse, getTrue, getAll} = require('./get-false-request');
 let savedToDatabaseResult;
 async function sendToChute (message) { 
     const mappedResult = await chuteMapping(message, message.db, message.pkName);
-   
+   console.log("MESSAGE!!!!!!", message)
     if (mappedResult.length > 0) {
       const mappedData =  {
         album: mappedResult[0].album_code,
