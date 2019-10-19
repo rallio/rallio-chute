@@ -100,6 +100,7 @@ const pollPromise = () => longPoller().then(response => {
   return messagesProcessedPromise.then(messages => messages.length);
 })
 
+
 let pollCount = 0
 let processedMessagesCount = 0
 const start = async () => {
