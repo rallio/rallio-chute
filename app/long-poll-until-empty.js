@@ -58,9 +58,7 @@ const handleMessages = async (messages) => {
     processedTags.then(() => {
       return true
     }),
-    processedLocation.then(() => {
-      return true
-    }),
+    processedLocation
   ]
 
   return Promise.all(promises);
