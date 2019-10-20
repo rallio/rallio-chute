@@ -52,13 +52,15 @@ const handleMessages = async (messages) => {
       retry:retry
     }
     
-    const processedLocation = sendToChute(locationObject);
+    const processedLocation = sendToChute(locationObject).then;
     console.log("AFTER LOCATION!!!!!", processedLocation)
     const promises = [
     processedTags.then(() => {
       return true
     }),
-    processedLocation
+    processedLocation.then(() => {
+      return true
+    }),
   ]
 
   return Promise.all(promises);
