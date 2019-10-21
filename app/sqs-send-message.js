@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
 require('dotenv').config();
 
-const faker = require('faker');
-
 const hash = require('../util/hash');
 var AWS = require('aws-sdk');
 AWS.config.update({
@@ -12,18 +10,10 @@ AWS.config.update({
 }); 
 var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
-const defaultPhoto = {
-  url: faker.image.imageUrl(),
-  account_id: 51,
-  franchisor_id: null,
-  photo_id: 89,
-  tags: [faker.random.word(), faker.random.word()].join(',')
-}
-
 const {
   DelaySeconds = 0,
   MessageBody = JSON.stringify({"account_id":51,"franchisor_id":null,"photo_id":91,"url":"https://res.cloudinary.com/ralliohq/q_auto/z8nhurfmjyaavqmcg2v3.jpg","tags":"pet,cat,kitten,mammal,animal,manx,plant,ground"}),
-  QueueUrl = process.env.QUE_URL,
+  QueueUrl = process.env.AWS_SQS_QUEUE_URL,
   numberOfMessagesToSend = 1
 } = hash(process.argv);
 

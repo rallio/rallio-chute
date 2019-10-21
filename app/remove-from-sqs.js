@@ -10,7 +10,7 @@ AWS.config.update({
 
 const removeFromSqs = ({
   ReceiptHandle = '', // required
-  QueueUrl = process.env.QUE_URL
+  QueueUrl = process.env.AWS_SQS_QUEUE_URL
 } = {}) => {
   return new Promise((resolve, reject) => {
     if (!ReceiptHandle) {
