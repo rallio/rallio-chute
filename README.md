@@ -1,5 +1,23 @@
 # Rallio Chute
 
+## Table of Contents
+- [Rallio Chute](#rallio-chute)
+  - [Table of Contents](#table-of-contents)
+  - [Status](#status)
+    - [master](#master)
+    - [production](#production)
+  - [Setup](#setup)
+  - [Install Deps](#install-deps)
+  - [Set up DB](#set-up-db)
+  - [Send a message to the queue](#send-a-message-to-the-queue)
+
+## Status
+### master
+[![Build Status](https://travis-ci.com/rallio/rallio-chute.svg?branch=master)](https://travis-ci.com/rallio/rallio-chute)
+
+### production
+[![Build Status](https://travis-ci.com/rallio/rallio-chute.svg?branch=production)](https://travis-ci.com/rallio/rallio-chute)
+
 ## Setup
 
 ## Install Deps
