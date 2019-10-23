@@ -23,7 +23,6 @@ module.exports = {
         };
       })
     ).then(models => {
-      console.table('tag models', models)
       return queryInterface.bulkInsert(`${MODEL_NAME}s`, models, {});
     });
   },
