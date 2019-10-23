@@ -38,8 +38,13 @@ const handleMessages = async (messages) => {
       pkName: 'tag',
       retry: retry
     }
-    
-    return sendToChute(messageObject)
+
+    return sendToChute(messageObject).catch(err => {
+      console.error(err);
+      debugger
+      return Infinity;
+    })
+
     }));
     const locationObject = {
       tag: null,
@@ -55,7 +60,7 @@ const handleMessages = async (messages) => {
       pkName: 'account_id',
       retry:retry
     }
-    
+
     const processedLocation = sendToChute(locationObject);
     console.log("AFTER LOCATION", processedLocation)
     const promises = [
@@ -98,10 +103,10 @@ const pollPromise = () => longPoller().then(async  (response) => {
   }
 
   const messagesProcessedPromise = await handleMessages(mappedMessages).catch(console.error);
-  
+
   // DELETE
   const messagesProcessed = await Promise.all(messagesProcessedPromise);
-  
+
   if (!messagesProcessed) {
     return Infinity;
   }
