@@ -114,4 +114,6 @@ const start = async () => {
   console.log('The queue is empty', {pollCount, processedMessagesCount});
 };
 
-start();
+// start();
+
+module.exports = { start };
