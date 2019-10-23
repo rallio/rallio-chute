@@ -12,7 +12,7 @@ const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 module.exports = ({
   MaxNumberOfMessages = 1,
-  QueueUrl = process.env.QUE_URL,
+  QueueUrl = process.env.AWS_SQS_QUEUE_URL,
   VisibilityTimeout = 0,
   WaitTimeSeconds = process.env.LONG_POLLING_WAIT_TIME
 } = {}) => {

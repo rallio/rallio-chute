@@ -24,7 +24,8 @@ async function sendMessage (data) {
 //_________________________________
 return new Promise((resolve, reject) =>{
   console.log("DATA", data)
-  oauth_token = process.env.OAUTH_TOKEN
+  
+  oauth_token = process.env.CHUTE_OAUTH_TOKEN
   var request = require("request");
 
   var options = { method: 'POST',
@@ -32,17 +33,25 @@ return new Promise((resolve, reject) =>{
   headers: 
    { 'Content-Type': 'application/json' },
   body: 
-   { file_url: data.file_url,
+   {
+     file_url: data.file_url || data.url,
      oauth_token: oauth_token },
   json: true };
 
 
-  request(options, function (error, response, body) {
-    if (error) {
-      console.log("Receive Error", err);
-      reject(err)
-    } else if (response) {
-      resolve(response.complete);
+  request(options, function (error, _, body) {
+    let rejectError = error || body.response.error;
+
+    if (rejectError) {
+   
+      console.log("Receive Error", rejectError);
+      return reject(rejectError);
+    }
+
+    try {
+      resolve(body.response);
+    } catch(err) {
+      reject({ message: 'missing body response', data: body});
     }
   });
 })

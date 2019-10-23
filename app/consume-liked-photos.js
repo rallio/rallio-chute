@@ -1,13 +1,5 @@
 require('dotenv').config();
-const {
-  sendMessage
-} = require('./send-message');
-const {
-  savedToDatabase
-} = require('./save-request');
-const {
-  chuteMapping
-} = require('./mapping');
+
 var AWS = require('aws-sdk');
 // Set the region
 AWS.config.update({
@@ -19,7 +11,7 @@ AWS.config.update({
 let getSqs = () => {
 
   var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
-  var queueURL = process.env.QUE_URL;
+  var queueURL = process.env.AWS_SQS_QUEUE_URL;
   var params = {
     MaxNumberOfMessages: 1,
     QueueUrl: queueURL,
