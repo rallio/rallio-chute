@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     album_code: DataTypes.INTEGER,
     account_id: DataTypes.INTEGER
   }, {});
-  LocationMap.associate = function(models) {
+  LocationMap.associate = function() {
     // associations can be defined here
   };
   return LocationMap;
