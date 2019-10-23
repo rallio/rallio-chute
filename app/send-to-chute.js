@@ -3,7 +3,7 @@ const {saveRequest} = require('./save-request');
 const {sendMessage} = require('./send-message');
 const {saveSuccess} = require('./save-success');
 // const {removeFromSqs} = require('./remove-from-sqs');
-const {getFalse} = require('./get-false-request');
+const {getFalse, getTrue, getAll} = require('./get-false-request');
 let savedToDatabaseResult;
 async function sendToChute (message) {
   const mappedResult = await chuteMapping(message, message.db, message.pkName);
