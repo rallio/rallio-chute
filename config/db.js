@@ -21,6 +21,13 @@ module.exports = {
       ssl: true
     }
   },
+  production: {
+    url: process.env.DATABASE_URL,
+    dialect,
+    dialectOptions: {
+      ssl: true
+    }
+  },
   psp: {
     url: process.env.DATABASE_URL,
     dialect,
