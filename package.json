@@ -10,7 +10,7 @@
     "db:create": "npx sequelize db:create",
     "db:migrate": "npx sequelize db:migrate",
     "db:seed:all": "npx sequelize db:seed:all",
-    "start": "node app/long-poll-until-empty.js",
+    "start": "node index.js",
     "env": "cp .env-sample .env"
   },
   "dependencies": {
