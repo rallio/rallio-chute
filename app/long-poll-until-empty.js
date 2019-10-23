@@ -11,41 +11,33 @@ async function checkRetry(messageIdExists){
     return false
   }
 }
-const handleMessages = async (messages) => {
-  debugger
-  // READ
+const handleMessages = messages => {
   return messages.map(async (message) => {
-    console.log('message...', message);
-    // debugger
     const { tags = [] } = message;
-    const messageIdExists = await checkDB(message.MessageId)
-    console.log('message existis', messageIdExists)
-    const retry = await checkRetry(messageIdExists)
-    console.log("RETRY!!!!!!!", retry)
-    const processedTags = Promise.all(tags.split(",").map(tag => {
-    // debugger
-    const messageObject = {
-      tag: tag,
-      file_url: message.url,
-      account_id: message.account_id,
-      franchisor_id: message.franchisor_id,
-      photo_id: message.photo_id,
-      receiptHandle: message.ReceiptHandle,
-      message_id: message.MessageId,
-      type: 'tag',
-      db: 'TagMap',
-      pk: tag,
-      pkName: 'tag',
-      retry: retry
-    }
+    const messageIdExists = await checkDB(message.MessageId);
+    const retry = await checkRetry(messageIdExists);
+    const processedTags = Promise.all(tags.split(',').map(tag => {
+      const messageObject = {
+        tag: tag,
+        file_url: message.url,
+        account_id: message.account_id,
+        franchisor_id: message.franchisor_id,
+        photo_id: message.photo_id,
+        receiptHandle: message.ReceiptHandle,
+        message_id: message.MessageId,
+        type: 'tag',
+        db: 'TagMap',
+        pk: tag,
+        pkName: 'tag',
+        retry: retry
+      };
 
-    return sendToChute(messageObject).catch(err => {
-      console.error(err);
-      debugger
-      return Infinity;
-    })
-
+      return sendToChute(messageObject).catch(err => {
+        console.error(err);
+        return Infinity;
+      });
     }));
+
     const locationObject = {
       tag: null,
       file_url: message.url,
@@ -59,74 +51,67 @@ const handleMessages = async (messages) => {
       pk: message.account_id,
       pkName: 'account_id',
       retry:retry
-    }
+    };
 
     const processedLocation = sendToChute(locationObject);
-    console.log("AFTER LOCATION", processedLocation)
     const promises = [
-    processedTags.then(() => {
-      return true
-    }),
-    processedLocation
-  ]
+      processedTags.then(() => true),
+      processedLocation
+    ];
 
-  return Promise.all(promises);
-  })
+    return Promise.all(promises);
+  });
 }
 
-const pollPromise = () => longPoller().then(async  (response) => {
+const pollPromise = () => longPoller().then(async (response) => {
   const { Messages } = response;
-  debugger
 
   if (!Messages)  {
     return 0;
   }
 
-  let mappedMessages
+  let mappedMessages;
   try {
     mappedMessages = Messages.map((m) => {
       const { ReceiptHandle, MessageId } = m;
 
       return { ...JSON.parse(m.Body), ReceiptHandle, MessageId };
-    })
+    });
   } catch (e) {
-    console.error('no body')
-    // throw new Error('unable to parse Body');
-    // debugger
+    console.error('no body');
     return Infinity;
   }
   if (!mappedMessages) {
-    console.error('no messages')
-    // throw new Error('no messages');
-    // debugger
+    console.error('no messages');
     return 0;
   }
 
-  const messagesProcessedPromise = await handleMessages(mappedMessages).catch(console.error);
-
-  // DELETE
-  const messagesProcessed = await Promise.all(messagesProcessedPromise);
+  const messagesProcessed = await Promise.all(handleMessages(mappedMessages)).catch(console.error);
 
   if (!messagesProcessed) {
     return Infinity;
   }
 
-  const messageRemovedPromises = messagesProcessed.map(removeFromSqs);
+  const messageRemovedPromises = messagesProcessed[0].filter(m => m !== true).map(message => {
+    return removeFromSqs({ ReceiptHandle: message.receiptHandle });
+  });
 
   await Promise.all(messageRemovedPromises).catch(console.error); // TODO AWS error handle
-  debugger
-  return messageRemovedPromises.length
-})
+
+  processedMessagesCount += messageRemovedPromises.length;
+
+  return messageRemovedPromises.length;
+});
 
 
-let pollCount = 0
-let processedMessagesCount = 0
+let pollCount = 0;
+let processedMessagesCount = 0;
 const start = async () => {
   while(await pollPromise() > 0) {
-    console.log('were still waiting...', ++pollCount)
+    console.log('were still waiting...', ++pollCount);
   }
 
   console.log('The queue is empty', {pollCount, processedMessagesCount});
-}
+};
 
-start()
+start();
