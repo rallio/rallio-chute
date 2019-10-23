@@ -19,7 +19,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: lint and test
       run: |
-        npm ci
         yarn lint
         yarn test
       env:
