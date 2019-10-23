@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     request_success: DataTypes.BOOLEAN,
     tag: DataTypes.STRING
   }, {});
-  Request.associate = function(models) {
+  Request.associate = function() {
     // associations can be defined here
   };
   return Request;
