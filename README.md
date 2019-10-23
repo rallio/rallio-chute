@@ -1,8 +1,5 @@
 # Rallio Chute
-
-## Table of Contents
 - [Rallio Chute](#rallio-chute)
-  - [Table of Contents](#table-of-contents)
   - [Status](#status)
     - [master](#master)
     - [production](#production)
