@@ -12,7 +12,7 @@ var sqs = new AWS.SQS({apiVersion: '2012-11-05'});
 
 const {
   DelaySeconds = 0,
-  MessageBody = JSON.stringify({"account_id":51,"franchisor_id":null,"photo_id":91,"url":"https://res.cloudinary.com/ralliohq/q_auto/z8nhurfmjyaavqmcg2v3.jpg","tags":"pet,cat,kitten,mammal,animal,manx,plant,ground"}),
+  MessageBody = {account_id: null, account_name: null, franchisor_id: 8, franchisor_name: "Bean Me Up - SoCal", photo_id: 93, photo_tags: "animal,mammal,pet,furniture,dog", photo_url: "https://res.cloudinary.com/ralliohq/q_auto/s7swm1swodxajmli0uhf.jpg"},
   QueueUrl = process.env.AWS_SQS_QUEUE_URL,
   numberOfMessagesToSend = 1
 } = hash(process.argv);

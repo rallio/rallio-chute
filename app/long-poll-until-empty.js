@@ -13,13 +13,14 @@ async function checkRetry(messageIdExists){
 }
 const handleMessages = messages => {
   return messages.map(async (message) => {
-    const { tags = [] } = message;
+    const { photo_tags = [] } = message;
     const messageIdExists = await checkDB(message.MessageId);
     const retry = await checkRetry(messageIdExists);
-    const processedTags = Promise.all(tags.split(',').map(tag => {
+   
+    const processedTags = Promise.all(photo_tags.split(',').map(tag => {
       const messageObject = {
         tag: tag,
-        file_url: message.url,
+        file_url: message.photo_url,
         account_id: message.account_id,
         franchisor_id: message.franchisor_id,
         photo_id: message.photo_id,
@@ -32,15 +33,12 @@ const handleMessages = messages => {
         retry: retry
       };
 
-      return sendToChute(messageObject).catch(err => {
-        console.error(err);
-        return Infinity;
-      });
+      return sendToChute(messageObject)
     }));
 
     const locationObject = {
       tag: null,
-      file_url: message.url,
+      file_url: message.photo_url,
       account_id: message.account_id,
       franchisor_id: message.franchisor_id,
       photo_id: message.photo_id,
@@ -59,7 +57,9 @@ const handleMessages = messages => {
       processedLocation
     ];
 
-    return Promise.all(promises);
+    return Promise.all(promises).then(() => {
+      return message
+    });
   });
 }
 
@@ -92,8 +92,8 @@ const pollPromise = () => longPoller().then(async (response) => {
     return Infinity;
   }
 
-  const messageRemovedPromises = messagesProcessed[0].filter(m => m !== true).map(message => {
-    return removeFromSqs({ ReceiptHandle: message.receiptHandle });
+  const messageRemovedPromises = messagesProcessed.map(message => {
+    return removeFromSqs({ ReceiptHandle: message.ReceiptHandle });
   });
 
   await Promise.all(messageRemovedPromises).catch(console.error); // TODO AWS error handle

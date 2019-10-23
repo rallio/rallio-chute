@@ -24,7 +24,7 @@ async function sendMessage (data) {
 //_________________________________
 return new Promise((resolve, reject) =>{
   console.log("DATA", data)
-  // debugger
+  
   oauth_token = process.env.CHUTE_OAUTH_TOKEN
   var request = require("request");
 
@@ -43,7 +43,7 @@ return new Promise((resolve, reject) =>{
     let rejectError = error || body.response.error;
 
     if (rejectError) {
-      debugger
+   
       console.log("Receive Error", rejectError);
       return reject(rejectError);
     }
