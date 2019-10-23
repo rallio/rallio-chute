@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "PORT=3001; jest --config --runInBand",
+    "lint": "npx eslint .",
     "send-message": "node app/sqs-send-message.js",
     "long-poll": "node app/long-poll.js",
     "db:create": "npx sequelize db:create",
