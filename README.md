@@ -1,6 +1,6 @@
 # Rallio Chute
 - [Rallio Chute](#rallio-chute)
-  - [Status](#status)
+  - [Travis Build Status](#travis-build-status)
     - [master](#master)
     - [production](#production)
   - [Setup](#setup)
@@ -8,7 +8,8 @@
   - [Set up DB](#set-up-db)
   - [Send a message to the queue](#send-a-message-to-the-queue)
 
-## Status
+## Travis Build Status
+[![Travis](https://cdn.travis-ci.com/images/ui/travis-ci-logo-hover-51a78629352a38fdd0046d35766797d2.svg)](https://travis-ci.com/rallio/rallio-chute)
 ### master
 [![Build Status](https://travis-ci.com/rallio/rallio-chute.svg?branch=master)](https://travis-ci.com/rallio/rallio-chute)
 
