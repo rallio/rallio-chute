@@ -13,7 +13,11 @@ module.exports = {
   },
   parserOptions: {
     ecmaVersion: 2018,
+    ecmaFeatures: {
+      impliedStrict: true
+    }
   },
   rules: {
+    strict: 'error'
   },
 };

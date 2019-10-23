@@ -1,4 +1,4 @@
-'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const LocationMap = sequelize.define('LocationMap', {
     album_code: DataTypes.INTEGER,
