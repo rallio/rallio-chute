@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - '12'
+dist: xenial
+addons:
+  postgresql: '10'
+services:
+  - postgresql
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+script:
+  # - NODE_ENV=test yarn db:create && yarn db:migrate
+  - yarn lint
+  - yarn test
+branches:
+  only:
+  - production
+  - master
+deploy:
+  provider: heroku
+  api_key:
+    secure: MtuIdXhZiPGZba9o1yrn40U0bcdrErekckt6AAsYlFPQqjfXsYtEDgGFQJuFP+pfo9jB9rqZCbuLbBMj7gYBhuKjS67B1qGdEFqP4qjR6gtIURhZCFdL9B7i1DNoApuKNSVCTwyvGOqTFwepkvu0dDkwZ9czy0EQyFqjhZLTw4g8ry7aD6+wP7HUvnAiz+gzKAdzXkoiL8n4TZPeMp5PBAvJgRa2d8BqOZKgu6F6zr9y6z3UceErNcU6DEBLSAt1ANOr7wcJyFOgDr54HKWt6QxoolEArRHNWrpcoeDXyq6pCMF4PZ9N71VgRjlS8xeThIWnT398HJwndfNrfVhROlSwtmFoSdraXU4lwIgUo+zwlFX38eGLYdUrSxcg2S8OFRgR0C7Q3xUEe4qPGqLd2vlJvWqny5sgR5tHwH2IE+TZaFc3mWdYkuwsE9xzzLgq1B3ULQVqxpkcO65ON/BEf6dgMnvC80X7S+LTHleJ9EA7s8b7mM88WTUi8sghax2CQ9Qrl4KFOGCr45JUVC4BP6LoqOkYoFZnJIqbgmnnT9hCkhMCldxkmwvvIUWe9gHElPnce5kmpKg5Vxq5gzUAU9K04bq51wmQz+ZCUDKUop2/lSs7j0tnTKoMAq4Wv7ptNPAxCzNYKFmH6G4bua2GTRovMrrGscTLcZl6PwE3uMc=
+  app:
+    master: rallio-chute-service-s
+    production: rallio-chute-service
+  run:
+    - yarn db:migrate
+notifications:
+  slack:
+    rooms:
+    - rallio:7g71eH41LnE5nYQcG6cTBcFb#travis-notifications
