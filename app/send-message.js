@@ -1,60 +1,41 @@
+var request = require("request");
 require('dotenv').config();
 
+const {
+  CHUTE_OAUTH_TOKEN
+} = process.env;
+
 async function sendMessage (data) {
-//   console.log("DATA", data)
-//   oauth_token = process.env.OAUTH_TOKEN
-//   var request = require("request");
+  return new Promise((resolve, reject) => {
+    console.log("DATA", data);
 
-//   var options = { method: 'POST',
-//   url: 'http://api.getchute.com/v2/albums/'+ data.album +'/assets/upload',
-//   headers: 
-//    { 'Content-Type': 'application/json' },
-//   body: 
-//    { file_url: data.file_url,
-//      oauth_token: oauth_token },
-//   json: true };
+    const options = {
+      method: 'POST',
+      url: `http://api.getchute.com/v2/albums/${data.album}/assets/upload`,
+      headers:
+      { 'Content-Type': 'application/json' },
+      body: {
+      file_url: data.file_url || data.url,
+      oauth_token: CHUTE_OAUTH_TOKEN
+      },
+      json: true
+    };
 
-//   request(options, function (error, response, body) {
-//   console.log(error)
-//   if (error) throw new Error(error);
-//   // console.log("#######response",response)
-//   console.log("#######response",response.complete)
-//   return response
-// });
-//_________________________________
-return new Promise((resolve, reject) =>{
-  console.log("DATA", data)
-  
-  oauth_token = process.env.CHUTE_OAUTH_TOKEN
-  var request = require("request");
+    request(options, (error, _, body) => {
+      let rejectError = error || body.response.error;
 
-  var options = { method: 'POST',
-  url: 'http://api.getchute.com/v2/albums/'+ data.album +'/assets/upload',
-  headers: 
-   { 'Content-Type': 'application/json' },
-  body: 
-   {
-     file_url: data.file_url || data.url,
-     oauth_token: oauth_token },
-  json: true };
+      if (rejectError) {
 
+        console.log("Receive Error", rejectError);
+        return reject(rejectError);
+      }
 
-  request(options, function (error, _, body) {
-    let rejectError = error || body.response.error;
-
-    if (rejectError) {
-   
-      console.log("Receive Error", rejectError);
-      return reject(rejectError);
-    }
-
-    try {
-      resolve(body.response);
-    } catch(err) {
-      reject({ message: 'missing body response', data: body});
-    }
+      try {
+        resolve(body.response);
+      } catch(err) {
+        reject({ message: 'missing body response', data: body});
+      }
+    });
   });
-})
-  
 }
 module.exports = { sendMessage };
