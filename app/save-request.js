@@ -3,6 +3,7 @@ const Models = require('../models/index')
 async function saveRequest (data) {
     const model = Models.Request
   console.log("&&&&&&&&&&&&&&&&in save request", data)
+  debugger
   const request = model.create({
     album: data.album,
     url: data.file_url,
@@ -13,6 +14,10 @@ async function saveRequest (data) {
     receipt_handle: data.receiptHandle,
     message_id: data.message_id,
     tag: data.tag
+  });
+  request.catch(err => {
+    console.error(err);
+    debugger
   });
   console.log("REQUEST", request)
   return request
