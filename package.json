@@ -13,8 +13,12 @@
     "db:migrate": "npx sequelize db:migrate",
     "db:seed:all": "npx sequelize db:seed:all",
     "start": "node --optimize_for_size --max_old_space_size=460 --gc_interval=10 index.js",
-    "sqs-local:start": "docker run -d -p 9324:9324 vsouza/sqs-local",
-    "sqs-local:create-queue": "aws --endpoint http://localhost:9324 sqs create-queue --queue-name photo-liked",
+    "sqs-local:dev:start": "yarn sqs-local:start && yarn sqs-local:create-queue",
+    "sqs-local:dev:stop": "yarn sqs-local:stop && yarn sqs-local:remove",
+    "sqs-local:start": "docker run -d -p 9324:9324 vsouza/sqs-local --rm",
+    "sqs-local:stop": "docker ps -a | grep -E 'vsouza\/sqs-local' | awk '{print $1}' | xargs docker stop",
+    "sqs-local:remove": "docker ps -a | grep -E 'vsouza\/sqs-local' | awk '{print $1}' | xargs docker container rm",
+    "sqs-local:create-queue": "aws --endpoint http://127.0.0.1:9324 sqs create-queue --queue-name photo-liked",
     "env": "cp .env-sample .env"
   },
   "dependencies": {

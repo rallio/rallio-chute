@@ -1,16 +1,35 @@
-require('dotenv').config();
 const AWS = require('aws-sdk');
+require('dotenv').config();
 
-// Set the region
-AWS.config.update({
-  accessKeyId: process.env.AWS_SQS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_SQS_SECRET_ACCESS_KEY,
-  region: process.env.AWS_REGION
-});
+const {
+  AWS_API_VERSION = '2012-11-05',
+  AWS_REGION,
+  AWS_SQS_ACCESS_KEY_ID,
+  AWS_SQS_SECRET_ACCESS_KEY,
+  AWS_SQS_QUEUE_URL
+} = process.env;
+
+if (AWS_SQS_ACCESS_KEY_ID) {
+  AWS.config.update({
+    accessKeyId: AWS_SQS_ACCESS_KEY_ID
+  });
+}
+if (AWS_SQS_SECRET_ACCESS_KEY) {
+  AWS.config.update({
+    secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY
+  });
+}
+if (AWS_REGION) {
+  AWS.config.update({
+    region: AWS_REGION
+  });
+}
+
+const sqs = new AWS.SQS({ apiVersion: AWS_API_VERSION });
 
 const removeFromSqs = ({
   ReceiptHandle = '', // required
-  QueueUrl = process.env.AWS_SQS_QUEUE_URL
+  QueueUrl = AWS_SQS_QUEUE_URL
 } = {}) => {
   return new Promise((resolve, reject) => {
     if (!ReceiptHandle) {
@@ -26,11 +45,9 @@ const removeFromSqs = ({
     };
 
     try {
-      const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
-
       sqs.deleteMessage({ QueueUrl, ReceiptHandle }, handleDelete);
     } catch(e) {
-      reject({ message: e });
+      reject({ message: 'unable to delete message', data: e });
     }
   });
 };
