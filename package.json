@@ -2,6 +2,8 @@
   "name": "rallio-chute",
   "version": "1.0.0",
   "main": "index.js",
+  "license": "UNLICENSED",
+  "private": true,
   "scripts": {
     "test": "PORT=3001; jest --config --runInBand",
     "lint": "npx eslint .",
@@ -11,6 +13,8 @@
     "db:migrate": "npx sequelize db:migrate",
     "db:seed:all": "npx sequelize db:seed:all",
     "start": "node --optimize_for_size --max_old_space_size=460 --gc_interval=10 index.js",
+    "sqs-local:start": "docker run -d -p 9324:9324 vsouza/sqs-local",
+    "sqs-local:create-queue": "aws --endpoint http://localhost:9324 sqs create-queue --queue-name photo-liked",
     "env": "cp .env-sample .env"
   },
   "dependencies": {
