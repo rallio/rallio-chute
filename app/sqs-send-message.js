@@ -43,6 +43,7 @@ const messagePromises = promises.map(() => {
         return reject(err);
       }
 
+      console.log(response);
       resolve(response);
     };
 
