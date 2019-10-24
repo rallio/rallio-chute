@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "test": "PORT=3001; jest --config --runInBand",
+    "test": "yarn && PORT=3001; jest --config --runInBand",
     "lint": "npx eslint .",
     "send-message": "node app/sqs-send-message.js",
     "long-poll": "node app/long-poll.js",
