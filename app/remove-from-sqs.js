@@ -40,7 +40,6 @@ const removeFromSqs = ({
       if (err) {
         return reject({ message: err });
       }
-
       resolve(data);
     };
 

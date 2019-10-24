@@ -12,7 +12,9 @@ const {
   MAX_NUMBER_OF_MESSAGES = 1
 } = process.env;
 
-module.exports = ({
+const longPoller = ({
+  MaxNumberOfMessages = 1,
+  QueueUrl = process.env.AWS_SQS_QUEUE_URL,
   VisibilityTimeout = 0,
   MaxNumberOfMessages = MAX_NUMBER_OF_MESSAGES,
   QueueUrl = AWS_SQS_QUEUE_URL,
@@ -50,3 +52,4 @@ module.exports = ({
     });
   });
 };
+module.exports={longPoller}
