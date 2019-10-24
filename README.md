@@ -25,6 +25,7 @@
 
 ```sh
 yarn --global add npx
+brew install awscli
 ```
 
 ## Set up DB

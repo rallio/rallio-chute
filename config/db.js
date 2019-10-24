@@ -6,12 +6,14 @@ module.exports = {
     username: 'postgres',
     database: 'chute_development',
     host: '127.0.0.1',
+    port: 5433,
     dialect
   },
   test: {
     username: 'postgres',
     database: 'chute_test',
     host: '127.0.0.1',
+    port: 5434,
     dialect
   },
   staging: {

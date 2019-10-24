@@ -5,13 +5,13 @@ dist: xenial
 addons:
   postgresql: '10'
 services:
-- postgresql
+- docker
 before_install:
 - curl -o- -L https://yarnpkg.com/install.sh | bash
 - export PATH="$HOME/.yarn/bin:$PATH"
 script:
 - yarn lint
-- yarn test
+- yarn jest
 branches:
   only:
   - production
