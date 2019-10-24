@@ -13,6 +13,7 @@
     "db:migrate": "npx sequelize db:migrate",
     "db:seed:all": "npx sequelize db:seed:all",
     "start": "node --optimize_for_size --max_old_space_size=460 --gc_interval=10 index.js",
+    "dev": "yarn && node index.js",
     "sqs-local:dev:start": "yarn sqs-local:start && yarn sqs-local:create-queue",
     "sqs-local:dev:stop": "yarn sqs-local:stop && yarn sqs-local:remove",
     "sqs-local:start": "npx docker run -d -p 9324:9324 vsouza/sqs-local --rm",

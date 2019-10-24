@@ -4,11 +4,12 @@
     - [master](#master)
     - [production](#production)
   - [Setup](#setup)
-  - [Install Deps](#install-deps)
+  - [Dependencies](#dependencies)
   - [Set up DB](#set-up-db)
   - [Set up a local SQS Queue](#set-up-a-local-sqs-queue)
   - [Stopping a local SQS Queue](#stopping-a-local-sqs-queue)
   - [Send a message to the queue](#send-a-message-to-the-queue)
+  - [Develop](#develop)
 
 ## Travis Build Status
 [![Travis](https://cdn.travis-ci.com/images/ui/travis-ci-logo-hover-51a78629352a38fdd0046d35766797d2.svg)](https://travis-ci.com/rallio/rallio-chute)
@@ -20,11 +21,10 @@
 
 ## Setup
 
-## Install Deps
+## Dependencies
 
 ```sh
 yarn --global add npx
-yarn
 ```
 
 ## Set up DB
@@ -51,4 +51,10 @@ yarn sqs-local:dev:stop
 
 ```sh
 yarn send-message MessageBody="Tacos are delicious."
+```
+
+## Develop
+
+```sh
+yarn dev
 ```
