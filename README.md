@@ -37,6 +37,7 @@ npx sequelize db:seed:all
 ## Set up a local Queue
 
 ```sh
+brew install docker
 yarn sqs-local:start
 yarn sqs-local:create-queue
 ```
