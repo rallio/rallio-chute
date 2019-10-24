@@ -22,6 +22,6 @@ jobs:
     - name: lint and test
       run: |
         yarn lint
-        yarn test
+        yarn jest
       env:
         CI: true
