@@ -6,6 +6,7 @@
   - [Setup](#setup)
   - [Install Deps](#install-deps)
   - [Set up DB](#set-up-db)
+  - [Set up a local Queue](#set-up-a-local-queue)
   - [Send a message to the queue](#send-a-message-to-the-queue)
 
 ## Travis Build Status
@@ -31,6 +32,13 @@ yarn
 npx sequelize db:create
 npx sequelize db:migrate
 npx sequelize db:seed:all
+```
+
+## Set up a local Queue
+
+```sh
+yarn sqs-local:start
+yarn sqs-local:create-queue
 ```
 
 ## Send a message to the queue
