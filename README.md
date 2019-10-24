@@ -6,7 +6,8 @@
   - [Setup](#setup)
   - [Install Deps](#install-deps)
   - [Set up DB](#set-up-db)
-  - [Set up a local Queue](#set-up-a-local-queue)
+  - [Set up a local SQS Queue](#set-up-a-local-sqs-queue)
+  - [Stopping a local SQS Queue](#stopping-a-local-sqs-queue)
   - [Send a message to the queue](#send-a-message-to-the-queue)
 
 ## Travis Build Status
@@ -34,12 +35,17 @@ npx sequelize db:migrate
 npx sequelize db:seed:all
 ```
 
-## Set up a local Queue
+## Set up a local SQS Queue
 
 ```sh
 brew install docker
-yarn sqs-local:start
-yarn sqs-local:create-queue
+yarn sqs-local:dev:start
+```
+
+## Stopping a local SQS Queue
+
+```sh
+yarn sqs-local:dev:stop
 ```
 
 ## Send a message to the queue
