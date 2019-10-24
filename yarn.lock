@@ -1068,10 +1068,10 @@ atob@^2.1.1:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-aws-sdk@^2.544.0:
-  version "2.551.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.551.0.tgz#30a1a47ca6b7cde0dd5eeb19473ea5035a264e56"
-  integrity sha512-H2S3GAIxxX9yG4i6NVFz/bcpW2RocYE8gBSn5SwbbV7ediqkxc4vCA247lyySscyqIhTcHZgpxwNNBxPcK8mnQ==
+aws-sdk@^2.556.0:
+  version "2.556.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.556.0.tgz#5c96bacf7942b530b20c94f3307e6650a97fd7be"
+  integrity sha512-qILMUNl/a7FYWU67Y24OGsXFhyDHM4qYdplMR2tps/g17pN9bEQ5ijxvGzW2T8VVyAsTanmn+dFyl/CH38pC5Q==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -1753,6 +1753,11 @@ diff-sequences@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/diff-sequences/-/diff-sequences-24.9.0.tgz#5715d6244e2aa65f48bba0bc972db0b0b11e95b5"
   integrity sha512-Dj6Wk3tWyTE+Fo1rW8v0Xhwk80um6yFYKbuAxc9c3EZxIHFDYwbi34Uk42u1CdnIiVorvt4RmlSDjIPyzGC2ew==
+
+docker-cli@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/docker-cli/-/docker-cli-0.0.2.tgz#5445a04aac959d375beff9b59049c3e2a9578103"
+  integrity sha1-VEWgSqyVnTdb7/m1kEnD4qlXgQM=
 
 doctrine@^3.0.0:
   version "3.0.0"

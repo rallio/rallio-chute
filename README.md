@@ -30,15 +30,14 @@ yarn
 ## Set up DB
 
 ```sh
-npx sequelize db:create
-npx sequelize db:migrate
-npx sequelize db:seed:all
+yarn db:create
+yarn db:migrate
+yarn db:seed:all
 ```
 
 ## Set up a local SQS Queue
 
 ```sh
-brew install docker
 yarn sqs-local:dev:start
 ```
 
