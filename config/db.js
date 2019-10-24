@@ -2,6 +2,13 @@ require('dotenv').config()
 const dialect = 'postgres';
 
 module.exports = {
+  docker: {
+    username: 'postgres',
+    database: 'chute_development',
+    host: '127.0.0.1',
+    port: 5433,
+    dialect
+  },
   development: {
     username: 'postgres',
     database: 'chute_development',

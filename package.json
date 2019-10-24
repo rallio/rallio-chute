@@ -16,10 +16,13 @@
     "dev": "yarn && node index.js",
     "sqs-local:dev:start": "yarn sqs-local:start && yarn sqs-local:create-queue",
     "sqs-local:dev:stop": "yarn sqs-local:stop && yarn sqs-local:remove",
-    "sqs-local:start": "npx docker run -d -p 9324:9324 vsouza/sqs-local --rm",
+    "sqs-local:start": "npx docker run -d -p 9324:9324 vsouza/sqs-local",
     "sqs-local:stop": "npx docker ps -a | grep -E 'vsouza/sqs-local' | awk '{print $1}' | xargs npx docker stop",
     "sqs-local:remove": "npx docker ps -a | grep -E 'vsouza/sqs-local' | awk '{print $1}' | xargs npx docker container rm",
-    "sqs-local:create-queue": "npx aws --endpoint http://127.0.0.1:9324 sqs create-queue --queue-name photo-liked",
+    "sqs-local:create-queue": "aws --endpoint http://127.0.0.1:9324 sqs create-queue --queue-name photo-liked",
+    "pg-local:start": "npx docker run --name chute-postgres -e POSTGRES_DB=chute_development -d -p 5433:5432 postgres",
+    "pg-local:stop": "npx docker ps -a | grep -E 'postgres' | awk '{print $1}' | xargs npx docker stop",
+    "pg-local:remove": "npx docker ps -a | grep -E 'postgres' | awk '{print $1}' | xargs npx docker container rm",
     "env": "cp .env-sample .env"
   },
   "dependencies": {
