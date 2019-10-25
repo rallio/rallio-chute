@@ -9,7 +9,11 @@ const start = async (poll = pollMessages) => {
   }
 
   console.log('The queue is empty', {pollCount, processedMessagesCount});
+
+  return {pollCount, processedMessagesCount}
 };
+
+
 
 // start();
 

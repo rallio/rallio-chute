@@ -1,20 +1,6 @@
 const {pollMessages} = require('../app/poll-messages')
 var assert = require('assert')
-const delay = (ms = 10) => new Promise(() => {
-    setTimeout(resolve, ms)
-})
-const removeFromSqs = async() => {
-    await delay()
-    return { message: '✅' }
-}
-function arrayRemove(arr, value) {
 
-    return arr.filter(function(ele){
-        return ele != value;
-    });
- 
- }
- 
 describe('when a queue has items in it', () => {
    
        
