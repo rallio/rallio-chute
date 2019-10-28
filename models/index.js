@@ -8,7 +8,7 @@ const env = process.env.NODE_ENV || 'development';
 const config = require('../config/db.js');
 const { database, username, password, host, dialect, url, port} = config[env];
 const db = {};
-debugger
+
 let sequelize;
 if (url) {
   sequelize = new Sequelize(url, { dialect });
