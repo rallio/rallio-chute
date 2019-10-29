@@ -22,7 +22,7 @@ const pollMessages = ({
         ReceiptHandle,
         MessageId
       } = m;
-
+debugger
       return {
         ...JSON.parse(m.Body),
         ReceiptHandle,
@@ -30,7 +30,8 @@ const pollMessages = ({
       };
     });
   } catch (e) {
-    console.error('no body');
+    debugger
+    console.error('no body', e);
     return Infinity;
   }
   if (!mappedMessages) {

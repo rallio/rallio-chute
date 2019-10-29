@@ -1,9 +1,13 @@
 const chuteMapping = require('../app/mapping')
-const Sequelize = require('sequelize')
 const models = require('../models')
 
 describe ('test mapping ', () => {
     let record
+    let message = {
+        pk: 'pet',
+        db: 'TagMap',
+        pkName: 'tag'
+    }
     beforeEach(async ()=> {
        await  models.sequelize.queryInterface.bulkDelete('TagMaps', null, {})
          record = await models.TagMap.create({album_code: 1111, tag: 'pet'})
@@ -19,7 +23,12 @@ describe ('test mapping ', () => {
     test('tagMap model type', () => {
         expect(typeof models.TagMap).toBe('function')
     })
-    test('sequelize', async () => { 
+    test('check if record exists', async () => { 
        expect(typeof record).toBe('object')
     })
+    test('tag has null request_success value', async () => { 
+        let result = await chuteMapping.chuteMapping(message, message.db, message.pkName)
+        
+        expect(result.album_code).toBe(1111)
+     })
 })

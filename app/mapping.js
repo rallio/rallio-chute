@@ -2,7 +2,7 @@ const Models = require('../models/index')
 
 async function chuteMapping (data, modelName, pkName) {
   const model = Models[modelName]
-  const pk = data[pkName]
+  let pk = data.pk
 
   const records = await model.findAll({
     where: {

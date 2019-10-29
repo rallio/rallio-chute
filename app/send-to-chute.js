@@ -7,6 +7,7 @@ const {saveSuccess} = require('./save-success');
 const {getFalse} = require('./get-false-request');
 let savedToDatabaseResult;
 async function sendToChute (message) {
+  debugger
   const mappedResult = await chuteMapping(message, message.db, message.pkName).catch(console.error);
   console.log("MESSAGE!!!!!!", message)
 
