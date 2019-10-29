@@ -17,6 +17,7 @@ describe('sanity', () => {
     let QueueName = 'hello-sqs'
 
     let response = await createQueue({ endpoint, QueueName }).catch(err => err)
+    console.log('should return a QueueURL when including a QueueName: response...', response)
     expect(typeof response).toBe('object')
     expect(typeof response.QueueUrl).toBe('string')
     expect(response.QueueUrl).toEqual(`${endpoint}/queue/${QueueName}`)
