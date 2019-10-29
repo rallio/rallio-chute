@@ -5,7 +5,8 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "test": "yarn && yarn pg-test-restart && yarn jest",
+    "test": "yarn && yarn jest",
+    "test:ci": "yarn && pg-test:start && yarn jest",
     "jest": "PORT=3001; npx jest --config --runInBand",
     "lint": "npx eslint .",
     "send-message": "node app/sqs-send-message.js",
