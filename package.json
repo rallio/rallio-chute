@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "yarn && yarn jest",
-    "test:ci": "yarn && yarn pg-test:start && sqs-local:start && yarn jest",
+    "test:ci": "yarn && yarn pg-test:start && yarn sqs-local:start && yarn jest",
     "jest": "PORT=3001; npx jest --config --runInBand",
     "lint": "npx eslint .",
     "send-message": "node app/sqs-send-message.js",
