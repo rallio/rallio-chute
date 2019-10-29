@@ -1,4 +1,4 @@
-const {createQueue} = require('../util/sqs/create-queue')
+const {createQueue} = require('../../util/sqs/create-queue')
 
 const endpoint = 'http://127.0.0.1:9324'
 
