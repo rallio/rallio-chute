@@ -27,7 +27,6 @@ if (AWS_REGION) {
   });
 }
 
-
 const sqs = ({ endpoint } = {}) => {
   return new AWS.SQS({
     apiVersion: AWS_API_VERSION,
@@ -35,6 +34,19 @@ const sqs = ({ endpoint } = {}) => {
   });
 }
 
+const hackAWSCredentials = () => {
+  /*
+  // HACK required for the test environment to run on ci
+
+  Even though we're running AWS sqs in a docker component, AWS will complain if there's no region, access key and secrets set, even when they're not necessary.
+  */
+  AWS.config.update({
+    accessKeyId: '...',
+    secretAccessKey: '...'
+  });
+};
+
 module.exports = {
-  sqs
+  sqs,
+  hackAWSCredentials
 };
