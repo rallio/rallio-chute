@@ -1,7 +1,6 @@
 const {createQueue} = require('../../util/sqs/create-queue')
 const AWS = require('aws-sdk')
 
-
 AWS.config.update({
   accessKeyId: '...',
   secretAccessKey: '...'
@@ -9,6 +8,7 @@ AWS.config.update({
 
 describe('util/sqs/create-queue', () => {
   const endpoint = 'http://127.0.0.1:9324'
+
   it('should import a function', () => {
     expect(typeof createQueue).toBe('function')
   })
@@ -21,9 +21,8 @@ describe('util/sqs/create-queue', () => {
 
   it('should return a QueueURL when including a QueueName', async () => {
     let QueueName = 'hello-sqs'
-
     let response = await createQueue({ endpoint, QueueName }).catch(err => err)
-    console.log('should return a QueueURL when including a QueueName: response...', response)
+
     expect(typeof response).toBe('object')
     expect(typeof response.QueueUrl).toBe('string')
     expect(response.QueueUrl).toEqual(`${endpoint}/queue/${QueueName}`)
