@@ -1,10 +1,10 @@
 const {sqs} = require('../../util/sqs')
-const AWS = require('aws-sdk')
+// const AWS = require('aws-sdk')
 
-AWS.config.update({
-  accessKeyId: '...',
-  secretAccessKey: '...'
-})
+// AWS.config.update({
+//   accessKeyId: '...',
+//   secretAccessKey: '...'
+// })
 
 describe('util/sqs', () => {
   it('imports a function', () => {

@@ -1,10 +1,10 @@
 const {createQueue} = require('../../util/sqs/create-queue')
-const AWS = require('aws-sdk')
+// const AWS = require('aws-sdk')
 
-AWS.config.update({
-  accessKeyId: '...',
-  secretAccessKey: '...'
-})
+// AWS.config.update({
+//   accessKeyId: '...',
+//   secretAccessKey: '...'
+// })
 
 describe('util/sqs/create-queue', () => {
   const endpoint = 'http://127.0.0.1:9324'
