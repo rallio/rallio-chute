@@ -1,7 +1,4 @@
 const {createQueue} = require('../../util/sqs/create-queue')
-const { hackAWSCredentials } = require('../../util/sqs')
-
-hackAWSCredentials()
 
 describe('util/sqs/create-queue', () => {
   const endpoint = 'http://127.0.0.1:9324'

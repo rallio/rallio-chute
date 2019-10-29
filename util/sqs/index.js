@@ -28,6 +28,10 @@ if (AWS_REGION) {
 }
 
 const sqs = ({ endpoint } = {}) => {
+  if (isTesing) {
+    hackAWSCredentials();
+  }
+
   return new AWS.SQS({
     apiVersion: AWS_API_VERSION,
     ...(endpoint && { endpoint })

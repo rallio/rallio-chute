@@ -1,6 +1,4 @@
-const {sqs, hackAWSCredentials} = require('../../util/sqs')
-
-hackAWSCredentials()
+const {sqs} = require('../../util/sqs')
 
 describe('util/sqs', () => {
   it('imports a function', () => {
