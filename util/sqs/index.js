@@ -6,7 +6,7 @@ const {
     AWS_API_VERSION = '2012-11-05',
     AWS_SQS_ACCESS_KEY_ID,
     AWS_SQS_SECRET_ACCESS_KEY,
-    AWS_REGION,
+    AWS_REGION = 'us-east-1',
 } = process.env;
 
 const isTesing = NODE_ENV === 'test';
