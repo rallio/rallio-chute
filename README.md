@@ -26,6 +26,7 @@
 ```sh
 yarn --global add npx
 brew install awscli
+brew cask install docker
 ```
 
 ## Set up DB
