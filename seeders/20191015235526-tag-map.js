@@ -1,30 +1,34 @@
 const faker = require('faker');
 const MODEL_NAME = 'TagMap';
-const ALBUM_CODES = [
-  faker.random.number(),
-  faker.random.number(),
-  faker.random.number(),
-];
 
 module.exports = {
   up: (queryInterface) => {
-    let insertRequests = [];
-    insertRequests.length = 100;
-    insertRequests.fill(null);
+    let models = [
+      {
+        id:1,
+        album_code:2691441,
+        tag: 'pet',
+        createdAt: faker.date.recent(),
+        updatedAt: faker.date.recent()
+      },
+      {
+        id:2,
+        album_code:2691111,
+        tag: 'cat',
+        createdAt: faker.date.recent(),
+        updatedAt: faker.date.recent()
+      },
+      {
+        id:3,
+        album_code:2691078,
+        tag: 'animal',
+        createdAt: faker.date.recent(),
+        updatedAt: faker.date.recent()
+      }
 
-    return Promise.all(
-      insertRequests.map(() => {
-        return {
-          id: faker.random.number(),
-          album_code:faker.helpers.shuffle(ALBUM_CODES)[0],
-          tag: faker.random.word(),
-          createdAt: faker.date.past(),
-          updatedAt: faker.date.recent()
-        };
-      })
-    ).then(models => {
-      return queryInterface.bulkInsert(`${MODEL_NAME}s`, models, {});
-    });
+    ];
+
+    return queryInterface.bulkInsert(`${MODEL_NAME}s`, models, {});
   },
 
   down: (queryInterface) => {

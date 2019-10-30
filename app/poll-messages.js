@@ -1,6 +1,6 @@
 const {handleMessages} = require('./handle-messages')
 const {longPoller} = require('./long-poller')
-const {removeFromSqs} = require('./remove-from-sqs')
+const {removeFromSqs} = require('../util/remove-from-sqs')
 const pollMessages = ({
     poller = longPoller,
     remove = removeFromSqs,
@@ -22,7 +22,7 @@ const pollMessages = ({
         ReceiptHandle,
         MessageId
       } = m;
-debugger
+
       return {
         ...JSON.parse(m.Body),
         ReceiptHandle,
@@ -30,7 +30,7 @@ debugger
       };
     });
   } catch (e) {
-    debugger
+    
     console.error('no body', e);
     return Infinity;
   }

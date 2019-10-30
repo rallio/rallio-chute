@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for app/poll-messages.js</title>
+    <title>Code coverage report for util/remove-from-sqs.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -16,35 +16,35 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../index.html">All files</a> / <a href="index.html">app</a> poll-messages.js
+      <a href="../index.html">All files</a> / <a href="index.html">util</a> remove-from-sqs.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">80.77% </span>
+        <span class="strong">45.45% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>21/26</span>
+        <span class='fraction'>10/22</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">72.73% </span>
+        <span class="strong">28.57% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>8/11</span>
+        <span class='fraction'>4/14</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>4/4</span>
+        <span class='fraction'>0/3</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">80.77% </span>
+        <span class="strong">45.45% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>21/26</span>
+        <span class='fraction'>10/22</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,139 +100,115 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">684x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">682x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">682x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">682x</span>
-<span class="cline-any cline-yes">682x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">682x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">682x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">682x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">682x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">682x</span>
-<span class="cline-any cline-yes">681x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">const {handleMessages} = require('./handle-messages')
-const {longPoller} = require('./long-poller')
-const {removeFromSqs} = require('../util/remove-from-sqs')
-const pollMessages = ({
-    poller = longPoller,
-    remove = removeFromSqs,
-    handle = handleMessages
-} = {}) =&gt; poller().then(async (response = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const AWS = require('aws-sdk');
+require('dotenv').config();
 &nbsp;
-  const {
-    Messages
-  } = response;
+const {
+  AWS_API_VERSION = '2012-11-05',
+  AWS_REGION,
+  AWS_SQS_ACCESS_KEY_ID,
+  AWS_SQS_SECRET_ACCESS_KEY,
+  AWS_SQS_QUEUE_URL
+} = process.env;
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!Messages) {
-<span class="cstat-no" title="statement not covered" >    return 0;</span>
-  }
-&nbsp;
-  let mappedMessages;
-  try {
-    mappedMessages = Messages.map((m) =&gt; {
-      const {
-        ReceiptHandle,
-        MessageId
-      } = m;
-&nbsp;
-      return {
-        ...JSON.parse(m.Body),
-        ReceiptHandle,
-        MessageId
-      };
-    });
-  } catch (e) {
-    
-<span class="cstat-no" title="statement not covered" >    console.error('no body', e);</span>
-<span class="cstat-no" title="statement not covered" >    return Infinity;</span>
-  }
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!mappedMessages) {
-<span class="cstat-no" title="statement not covered" >    console.error('no messages');</span>
-<span class="cstat-no" title="statement not covered" >    return 0;</span>
-  }
-&nbsp;
-  const messagesProcessed = await Promise.all(handle({messages: mappedMessages})).catch(console.error);
-&nbsp;
-  if (!messagesProcessed) {
-    return Infinity;
-  }
-  
-  const messageRemovedPromises = messagesProcessed.map(message =&gt; {
-    return remove({
-      ReceiptHandle: message.ReceiptHandle
-    });
+<span class="missing-if-branch" title="if path not taken" >I</span>if (AWS_SQS_ACCESS_KEY_ID) {
+<span class="cstat-no" title="statement not covered" >  AWS.config.update({</span>
+    accessKeyId: AWS_SQS_ACCESS_KEY_ID
   });
-  
-  await Promise.all(messageRemovedPromises).catch(console.error); // TODO AWS error handle
+}
+<span class="missing-if-branch" title="if path not taken" >I</span>if (AWS_SQS_SECRET_ACCESS_KEY) {
+<span class="cstat-no" title="statement not covered" >  AWS.config.update({</span>
+    secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY
+  });
+}
+<span class="missing-if-branch" title="else path not taken" >E</span>if (AWS_REGION) {
+  AWS.config.update({
+    region: AWS_REGION
+  });
+}
 &nbsp;
-//   processedMessagesCount += messageRemovedPromises.length;
-debugger
-  return messageRemovedPromises.length;
-});
+const sqs = new AWS.SQS({ apiVersion: AWS_API_VERSION });
 &nbsp;
+const removeFromSqs = <span class="fstat-no" title="function not covered" >({</span>
+  ReceiptHandle = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> // required
+  QueueUrl = <span class="branch-0 cbranch-no" title="branch not covered" >AWS_SQS_QUEUE_URL</span>
+} = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    if (!ReceiptHandle) {</span>
+<span class="cstat-no" title="statement not covered" >      return reject({ message: 'missing ReceiptHandle' });</span>
+    }
 &nbsp;
+    const handleDelete = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>rr, data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (err) {</span>
+<span class="cstat-no" title="statement not covered" >        return reject({ message: err });</span>
+      }
+<span class="cstat-no" title="statement not covered" >      resolve(data);</span>
+    };
 &nbsp;
-module.exports = { pollMessages }</pre></td></tr>
+<span class="cstat-no" title="statement not covered" >    try {</span>
+<span class="cstat-no" title="statement not covered" >      sqs.deleteMessage({ QueueUrl, ReceiptHandle }, handleDelete);</span>
+    } catch(e) {
+<span class="cstat-no" title="statement not covered" >      reject({ message: 'unable to delete message', data: e });</span>
+    }
+  });
+};
+&nbsp;
+module.exports = { removeFromSqs };
+&nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->

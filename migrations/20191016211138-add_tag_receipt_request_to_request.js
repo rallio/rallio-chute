@@ -7,6 +7,9 @@ module.exports = {
       'request_success',
       Sequelize.BOOLEAN
     )
+  },
+  down: (queryInterface) => {
+    return queryInterface.removeColumn('Requests','request_success');
   }
 };
 
