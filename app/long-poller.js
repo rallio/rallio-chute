@@ -8,7 +8,7 @@ const {
 
 const longPoller = ({
   VisibilityTimeout = 0,
-  MaxNumberOfMessages = MAX_NUMBER_OF_MESSAGES || 1,
+  MaxNumberOfMessages = Number(MAX_NUMBER_OF_MESSAGES),
   QueueUrl = AWS_SQS_QUEUE_URL,
   WaitTimeSeconds = LONG_POLLING_WAIT_TIME,
   sqs = require('../util/sqs').sqs()

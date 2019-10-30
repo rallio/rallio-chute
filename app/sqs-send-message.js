@@ -8,7 +8,7 @@ const {
   AWS_REGION,
   AWS_SQS_ACCESS_KEY_ID,
   AWS_SQS_SECRET_ACCESS_KEY,
-  AWS_SQS_QUEUE_URL,
+  // AWS_SQS_QUEUE_URL,
   NODE_ENV = 'development'
 } = process.env;
 
@@ -27,7 +27,7 @@ if (NODE_ENV !== 'test') {
 const {
   DelaySeconds = 0,
   MessageBody = JSON.stringify({account_id: null, account_name: null, franchisor_id: 8, franchisor_name: "Bean Me Up - SoCal", photo_id: 93, photo_tags: "animal,mammal,pet,furniture,dog", photo_url: "https://res.cloudinary.com/ralliohq/q_auto/s7swm1swodxajmli0uhf.jpg"}),
-  QueueUrl = AWS_SQS_QUEUE_URL,
+  QueueUrl = 'http://127.0.0.1:9324/queue/photo-liked',
   numberOfMessagesToSend = 1,
   sqs = new AWS.SQS({ apiVersion: AWS_API_VERSION }),
 } = hash(process.argv);
@@ -50,6 +50,11 @@ const messagePromises = promises.map(() => {
     };
 
     try {
+      console.log('sending message: ', {
+        DelaySeconds,
+        MessageBody,
+        QueueUrl
+      });
       sqs.sendMessage({
         DelaySeconds,
         MessageBody,
