@@ -1,16 +1,17 @@
 const {chuteMapping} = require('./mapping');
 const {saveRequest} = require('./save-request');
 const {sendMessage} = require('../util/send-message');
+const {sendDetails} = require('../util/update-message');
 const {saveSuccess} = require('./save-success');
 // const {removeFromSqs} = require('./remove-from-sqs');
 // const {getFalse, getTrue, getAll} = require('./get-false-request');
 const {getFalse} = require('./get-false-request');
 let savedToDatabaseResult;
-async function sendToChute ({message, send = sendMessage}) {
+async function sendToChute ({message, send = sendMessage, details = sendDetails}) {
   const mappedResult = await chuteMapping({pk: message.pk, modelName: message.db, pkName: message.pkName}).catch(console.error);
 
 console.log("mappedResult!!!!!!", mappedResult)
-debugger
+
   if (!mappedResult) {
     
     console.info('a location or tag was found that doesnt have any matching maps in the DB.', message);
@@ -27,12 +28,14 @@ debugger
     message_id: message.message_id,
     type: message.type,
     tag:message.tag,
-    retry:message.retry
+    retry:message.retry,
+    description: message.description,
+    all_tags: message.all_tags
   };
-  debugger
+  
   if (message.retry === false) {
     savedToDatabaseResult = await saveRequest(mappedData);
-debugger
+
     const newData = {
       album: mappedData.album,
       file_url: mappedData.file_url,
@@ -43,24 +46,35 @@ debugger
       type: mappedData.type,
       message_id: mappedData.message_id,
       id: savedToDatabaseResult.id,
-      retry:mappedData.retry
+      retry:mappedData.retry,
+      description: mappedData.description,
+      all_tags: mappedData.all_tags
     };
 
     const chuteResult = await send(newData).catch(console.error);
-debugger
-    if (!chuteResult) { 
+    console.log("CHUTE RESULT!!!!!!!!!!!!!", chuteResult)
+
+    if (!chuteResult.response) { 
       
       return Promise.reject({
         message: 'There was no chute result',
         data: newData
       });
     }
+    const chuteDetailsResult = await details({data: newData, firstResult:chuteResult})
+    if (!chuteDetailsResult) {   
+      return Promise.reject({
+        message: 'There was no chute result',
+        data: newData
+      });
+    }
+
     const successData =  await saveSuccess(newData);
 
     if (!successData) {
       return Promise.reject('this stays in the queue');
     }
-debugger
+
     return chuteResult;
   } else { // message.retry !== false
     
@@ -69,8 +83,16 @@ debugger
     if (newData !== null) {
       const chuteResult = await send(newData).catch(console.error);
 
-      if (!chuteResult) {
+      if (!chuteResult.response) {
         
+        return Promise.reject({
+          message: 'There was no chute result',
+          data: newData
+        });
+      }
+      
+      const chuteDetailsResult = await details({data: newData, firstResult:chuteResult})
+      if (!chuteDetailsResult) {   
         return Promise.reject({
           message: 'There was no chute result',
           data: newData
