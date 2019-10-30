@@ -8,26 +8,28 @@ const {
   AWS_REGION,
   AWS_SQS_ACCESS_KEY_ID,
   AWS_SQS_SECRET_ACCESS_KEY,
-  AWS_SQS_QUEUE_URL
+  AWS_SQS_QUEUE_URL,
+  NODE_ENV = 'development'
 } = process.env;
 
-if (AWS_SQS_ACCESS_KEY_ID) {
-  AWS.config.update({ accessKeyId: AWS_SQS_ACCESS_KEY_ID });
+if (NODE_ENV !== 'test') {
+  if (AWS_SQS_ACCESS_KEY_ID) {
+    AWS.config.update({ accessKeyId: AWS_SQS_ACCESS_KEY_ID });
+  }
+  if (AWS_SQS_SECRET_ACCESS_KEY) {
+    AWS.config.update({ secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY });
+  }
+  if (AWS_REGION) {
+    AWS.config.update({ region: AWS_REGION });
+  }
 }
-if (AWS_SQS_SECRET_ACCESS_KEY) {
-  AWS.config.update({ secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY });
-}
-if (AWS_REGION) {
-  AWS.config.update({ region: AWS_REGION });
-}
-
-const sqs = new AWS.SQS({ apiVersion: AWS_API_VERSION });
 
 const {
   DelaySeconds = 0,
   MessageBody = JSON.stringify({account_id: null, account_name: null, franchisor_id: 8, franchisor_name: "Bean Me Up - SoCal", photo_id: 93, photo_tags: "animal,mammal,pet,furniture,dog", photo_url: "https://res.cloudinary.com/ralliohq/q_auto/s7swm1swodxajmli0uhf.jpg"}),
   QueueUrl = AWS_SQS_QUEUE_URL,
-  numberOfMessagesToSend = 1
+  numberOfMessagesToSend = 1,
+  sqs = new AWS.SQS({ apiVersion: AWS_API_VERSION }),
 } = hash(process.argv);
 
 let promises = [];

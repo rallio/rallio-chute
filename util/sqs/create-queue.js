@@ -1,8 +1,13 @@
 const {sqs} = require('./index')
+require('dotenv').config()
+
+const {
+  NODE_ENV
+} = process.env
 
 const createQueue = ({
     QueueName, /* required */
-    endpoint = null,
+    endpoint = NODE_ENV === 'test' ? 'http://127.0.0.1:9324' : null,
     Attributes = {},
     tags = {}
   } = {}) => {
@@ -17,7 +22,7 @@ const createQueue = ({
       ...(Object.keys(tags).length && { tags }),
     };
 
-    sqs({ endpoint }).createQueue(params, (err, data) => {
+    sqs(endpoint ? { endpoint }: undefined).createQueue(params, (err, data) => {
       if (err) {
         return reject(err);
       }
