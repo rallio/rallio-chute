@@ -4,7 +4,7 @@ const { pollMessages } = require('./poll-messages')
 let pollCount = 0;
 let processedMessagesCount = 0;
 const start = async (poll = pollMessages) => {
-  debugger
+  
   while(await poll() > 0) {
     console.log('were still waiting...', ++pollCount);
   }

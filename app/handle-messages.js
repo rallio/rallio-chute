@@ -10,9 +10,9 @@ const handleMessages = ({messages, db = checkDB, send = sendToChute}) => {
       const messageIdExists = await db(message.MessageId);
       
       const retry = checkRetry(messageIdExists);
-      
+    debugger  
       const processedTags = await Promise.all(photo_tags.split(',').map(tag => {
-        
+      debugger  
         const messageObject = {
           tag: tag,
           file_url: message.photo_url,

@@ -39,7 +39,7 @@ const pollMessages = ({
     return 0;
   }
 
-  const messagesProcessed = await Promise.all(handle({messages: mappedMessages})).catch(console.error);
+  const messagesProcessed = await handle({messages: mappedMessages});
 
   if (!messagesProcessed) {
     return Infinity;
