@@ -43,11 +43,6 @@ describe('when a queue has items in it', () => {
     ReceiptHandle:"AQEBOf58fAur4yovjSYhNj4zv5Mlat1bqoLj2fGhJI94aAYT4qF4rlO7EOlFD0ANZHs06UeKRB/rXrL7D7uh8kHgp1FdPlJTLyvAYoYZpHcchUaNC5cRGOVLXwHqyF1eclNvfQ6fXYBqO4I+yIo44L+bF64UP3RzBrkIe+c5tsO+ifO7gd4ITy7AZThVjng2JfXb3X+toA+/QL+Lm3arla2S46lLUZkFA18lvp5NMqiSIagXC//kMwnKFQq5D6vFfNnZFqyPlxSEjlEAZXqjiIuDXv1RvHOdsw3H/xlP+kuaNHdwS8fmzTYlokl4Ko9ll3VbYiwNyMs9VvpmaKcgBQe+UnTD/KFzmMQ5zAyMa9rtOMEqVIw880J4w4DNEP4Iqel5Emfd8CiFfqVM1rsP4CSAiFvntsQAphBT9Crp7DKTeao="
     }]
   }
-
-    // const = removeById(id) => {
-    //     queue.findById.remove
-    // }
-   
      
     it('removes from queue', async () => {
         const queueLength = queue.Messages.length

@@ -68,36 +68,84 @@ let messageTag = {
     pkName: 'tag',
     retry: false 
 }
+let noMappedMessage = {
+    tag: 'nature',
+    file_url: "http://testphoto.com",
+    account_id: 51,
+    franchisor_id: 6,
+    photo_id: 333,
+    receiptHandle: "222222",
+    message_id: "4444444",
+    type: 'tag',
+    db: 'TagMap',
+    pk: 'nature',
+    pkName: 'tag',
+    retry: false 
+}
   
  let sendMessage = () => new Promise(function(resolve) {
      return resolve(
-        {
-          code:201,
-          href:"http://api.getchute.com/v2/albums/2691441/assets/upload",
-          method:"POST",
-          title:"AlbumAsset Details",
-          version:2
+        { response: 
+            {
+            code:201,
+            href:"http://api.getchute.com/v2/albums/2691441/assets/upload",
+            method:"POST",
+            title:"AlbumAsset Details",
+            version:2
+           }
         }
      )
   })
+  let sendDetails = () => new Promise(function(resolve) {
+    return resolve(
+       { response: 
+           {
+           code:201,
+           href:"http://api.getchute.com/v2/albums/2691441/assets/upload",
+           method:"POST",
+           title:"AlbumAsset Details",
+           version:2
+          }
+       }
+    )
+ })
   let sendMessageFail = () => new Promise(function(resolve) {
     return resolve(false)
  })
+ let sendDetailFail = () => new Promise(function(resolve) {
+    return resolve(false)
+ })
+
+ async function saveSuccess(){ 
+    return ["one"]
+ }
+ async function saveSuccessFail(){ 
+    return false
+ }
  
-    test('removes from queue', async () => {
-       const result = await sendToChute.sendToChute({message, send: sendMessage}) 
+    test('removes from queue retry false', async () => {
+       const result = await sendToChute.sendToChute({message, send: sendMessage, details: sendDetails, save: saveSuccess}) 
        
        expect(typeof result).toBe('object')
     })
-    test('does not remove from queue', async () => {
-        const result = await sendToChute.sendToChute({message: messageRetry, send: sendMessageFail}).catch(err => err) 
+    test('does not remove from queue retry false', async () => {
+        const result = await sendToChute.sendToChute({message: messageTag, send: sendMessageFail}).catch(err => err) 
         expect(result.message).toBe('There was no chute result')
      })
+     test('does not remove from queue details call fails retry false', async () => {
+        const result = await sendToChute.sendToChute({message: messageTag, send: sendMessage, details: sendDetailFail}).catch(err => err) 
+        expect(result.message).toBe('There was no chute result')
+     }) 
 
-       
-    test('removes from queue if retry true', async () => {
-        const result = await sendToChute.sendToChute({message: messageTag, send: sendMessage}) 
+    test('does not removes from queue retry false', async () => {
+        const result = await sendToChute.sendToChute({message, send: sendMessage, details: sendDetails, save: saveSuccessFail}).catch(err => err) 
         
+        expect(result).toBe('this stays in the queue')
+     })
+
+    test('removes from queue if retry true', async () => {
+        const result = await sendToChute.sendToChute({message: messageRetry, send: sendMessage,  details: sendDetails, save: saveSuccess}) 
+
         expect(typeof result).toBe('object')
      })
      test('does not remove from queue if retry true', async () => {
@@ -105,7 +153,19 @@ let messageTag = {
         
         expect(result.message).toBe('There was no chute result')
      })
+     test('does not remove from queue if retry true details call fails', async () => {
+        const result = await sendToChute.sendToChute({message: messageTagRetry, send: sendMessage, details: sendDetailFail}).catch(err => err) 
+        expect(result.message).toBe('There was no chute result')
+     })
+     test(' does not remove from queue if retry true save doesnt work', async () => {
+        const result = await sendToChute.sendToChute({message: messageRetry, send: sendMessage,  details: sendDetails, save: saveSuccessFail }).catch(err => err) 
 
+        expect(result).toBe('this stays in the queue')
+     })
+     test('if no mapped result', async () => {
+        const result = await sendToChute.sendToChute({message: noMappedMessage, send: sendMessage,  details: sendDetails, save: saveSuccessFail }).catch(err => err) 
 
+        expect(typeof result).toBe('object')
+     })
      
 })

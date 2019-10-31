@@ -7,13 +7,12 @@ const {saveSuccess} = require('./save-success');
 // const {getFalse, getTrue, getAll} = require('./get-false-request');
 const {getFalse} = require('./get-false-request');
 let savedToDatabaseResult;
-async function sendToChute ({message, send = sendMessage, details = sendDetails}) {
+async function sendToChute ({message, send = sendMessage, details = sendDetails, save = saveSuccess}) {
   const mappedResult = await chuteMapping({pk: message.pk, modelName: message.db, pkName: message.pkName}).catch(console.error);
 
 console.log("mappedResult!!!!!!", mappedResult)
 
   if (!mappedResult) {
-    
     console.info('a location or tag was found that doesnt have any matching maps in the DB.', message);
     return Promise.resolve(message);
   }
@@ -61,7 +60,9 @@ console.log("mappedResult!!!!!!", mappedResult)
         data: newData
       });
     }
+
     const chuteDetailsResult = await details({data: newData, firstResult:chuteResult})
+    
     if (!chuteDetailsResult) {   
       return Promise.reject({
         message: 'There was no chute result',
@@ -69,7 +70,7 @@ console.log("mappedResult!!!!!!", mappedResult)
       });
     }
 
-    const successData =  await saveSuccess(newData);
+    const successData =  await save(newData);
 
     if (!successData) {
       return Promise.reject('this stays in the queue');
@@ -99,9 +100,10 @@ console.log("mappedResult!!!!!!", mappedResult)
         });
       }
 
-      const successData = await saveSuccess(newData);
+      const successData = await save(newData);
 
       if (!successData) {
+        
         return Promise.reject('this stays in the queue');
       }
 

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 var request = require("request");
 require('dotenv').config();
 

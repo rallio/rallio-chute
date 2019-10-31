@@ -2,13 +2,16 @@ const { sendToChute } = require('./send-to-chute');
 const {checkDB} = require('./check-existing');
 const handleMessages = ({messages, db = checkDB, send = sendToChute}) => {
     
-    return messages.map(async (message) => {
+    var handleMessagePromises = messages.map(async (message) => {
+      
       const { photo_tags = [] } = message;
+      
       console.log("db.message", message)
       const messageIdExists = await db(message.MessageId);
-      const retry = await checkRetry(messageIdExists);
-  
-      const processedTags = Promise.all(photo_tags.split(',').map(tag => {
+      
+      const retry = checkRetry(messageIdExists);
+      
+      const processedTags = await Promise.all(photo_tags.split(',').map(tag => {
         
         const messageObject = {
           tag: tag,
@@ -47,19 +50,14 @@ const handleMessages = ({messages, db = checkDB, send = sendToChute}) => {
         all_tags: message.photo_tags
       };
   
-      const processedLocation = send({message: locationObject});
-      const promises = [
-        processedTags.then(() => true),
-        processedLocation
-      ];
-  
-      return Promise.all(promises).then(() => {
-        return message
-      });
+      await send({message: locationObject});
+      return message
     });
+   return Promise.all(handleMessagePromises)
   }
 
-  async function checkRetry(messageIdExists){
+
+  function checkRetry(messageIdExists){
     if (messageIdExists.length > 0){
       return true
     }else{

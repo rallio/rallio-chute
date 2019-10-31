@@ -14,10 +14,6 @@ async function saveRequest (data) {
     message_id: data.message_id,
     tag: data.tag
   });
-  request.catch(err => {
-    console.error("################",err);
-  });
-  console.log("REQUEST", request)
   return request
 }
 

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const AWS = require('aws-sdk');
 require('dotenv').config();
 
