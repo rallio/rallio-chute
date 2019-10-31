@@ -18,11 +18,11 @@ describe ('check-exisiting component checks if message_id already exisis in data
     test('request model type', () => {
         expect(typeof models.Request).toBe('function')
     })
-    test('message id should exist in the database', async () => { 
-        let id = '4444444'
-        let result = await checkExisting.checkDB(id)
-        expect(result).toHaveLength(1)
-     })
+    // test('message id should exist in the database', async () => { 
+    //     let id = '4444444'
+    //     let result = await checkExisting.checkDB(id)
+    //     expect(result).toHaveLength(1)
+    //  })
      test('message id does not exist in the database', async () => { 
         let id = '6666666'
         let result = await checkExisting.checkDB(id)

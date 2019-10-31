@@ -3,11 +3,7 @@ const models = require('../models')
 
 describe ('test mapping ', () => {
     let record
-    let message = {
-        pk: 'pet',
-        db: 'TagMap',
-        pkName: 'tag'
-    }
+  
     beforeEach(async ()=> {
        await  models.sequelize.queryInterface.bulkDelete('TagMaps', null, {})
          record = await models.TagMap.create({album_code: 1111, tag: 'pet'})
