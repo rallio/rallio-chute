@@ -9,7 +9,7 @@ const {getFalse} = require('./get-false-request');
 let savedToDatabaseResult;
 async function sendToChute ({message, send = sendMessage, details = sendDetails, save = saveSuccess}) {
   const mappedResult = await chuteMapping({pk: message.pk, modelName: message.db, pkName: message.pkName}).catch(console.error);
-debugger
+
 console.log("mappedResult!!!!!!", mappedResult)
 
   if (!mappedResult) {

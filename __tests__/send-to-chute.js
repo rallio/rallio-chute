@@ -1,15 +1,14 @@
 const sendToChute = require('../app/send-to-chute')
 const models = require('../models')
 describe('message goes through process to get sent to chute', () => {
-    let record
-    let tag
+
     beforeEach(async ()=> {
         await  models.sequelize.queryInterface.bulkDelete('Requests', null, {})
         await  models.sequelize.queryInterface.bulkDelete('LocationMaps', null, {})
         await  models.sequelize.queryInterface.bulkDelete('TagMaps', null, {})
-        record = await models.LocationMap.create({ album_code: 1111, account_id: 51 })
-        tag = await models.TagMap.create({ album_code: 2222, tag: 'pet' })
-        recordRetry = await models.Request.create({ album: '12345', url: 'http://testphoto.com', account_id: 51, franchisor_id: 6, photo_id: 333, type: 'tag', receipt_handle: '222222', message_id: '4444444', tag: 'pet'})
+        await models.LocationMap.create({ album_code: 1111, account_id: 51 })
+        await models.TagMap.create({ album_code: 2222, tag: 'pet' })
+        await models.Request.create({ album: '12345', url: 'http://testphoto.com', account_id: 51, franchisor_id: 6, photo_id: 333, type: 'tag', receipt_handle: '222222', message_id: '4444444', tag: 'pet'})
      })
       
 let message = {

@@ -2,17 +2,14 @@ const getFalseRequest = require('../app/get-false-request')
 const models = require('../models')
 
 describe ('retreiving record object based on requests_success', () => {
-    let recordOne
-    let recordTwo
-    let recordThree
-    let recordFour
+  
     beforeEach(async ()=> {
         await  models.sequelize.queryInterface.bulkDelete('Requests', null, {})
-        recordOne = await models.Request.create({ album: '12345', url: 'http://testphoto.com', account_id: 51, franchisor_id: 6, photo_id: 333, type: 'location', receipt_handle: '222222', message_id: '4444444', tag: null, request_success: null})
-        recordTwo = await models.Request.create({ album: '67890', url: 'http://testphoto.com', account_id: 52, franchisor_id: 7, photo_id: 444, type: 'tag', receipt_handle: '333333', message_id: '555555', tag: 'pet', request_success: null})
-        recordThree = await models.Request.create({ album: '12345', url: 'http://testphoto.com', account_id: 51, franchisor_id: 6, photo_id: 555, type: 'location', receipt_handle: '444444', message_id: '666666', tag: null, request_success: true})
-        recordFour = await models.Request.create({ album: '67890', url: 'http://testphoto.com', account_id: 52, franchisor_id: 7, photo_id: 666, type: 'tag', receipt_handle: '555555', message_id: '777777', tag: 'pet', request_success: true})
-        recordFive = await models.Request.create({ album: '67890', url: 'http://testphoto.com', account_id: 52, franchisor_id: 7, photo_id: 666, type: 'tag', receipt_handle: '555555', message_id: '777777', tag: 'animal', request_success: null})
+        await models.Request.create({ album: '12345', url: 'http://testphoto.com', account_id: 51, franchisor_id: 6, photo_id: 333, type: 'location', receipt_handle: '222222', message_id: '4444444', tag: null, request_success: null})
+        await models.Request.create({ album: '67890', url: 'http://testphoto.com', account_id: 52, franchisor_id: 7, photo_id: 444, type: 'tag', receipt_handle: '333333', message_id: '555555', tag: 'pet', request_success: null})
+        await models.Request.create({ album: '12345', url: 'http://testphoto.com', account_id: 51, franchisor_id: 6, photo_id: 555, type: 'location', receipt_handle: '444444', message_id: '666666', tag: null, request_success: true})
+        await models.Request.create({ album: '67890', url: 'http://testphoto.com', account_id: 52, franchisor_id: 7, photo_id: 666, type: 'tag', receipt_handle: '555555', message_id: '777777', tag: 'pet', request_success: true})
+        await models.Request.create({ album: '67890', url: 'http://testphoto.com', account_id: 52, franchisor_id: 7, photo_id: 666, type: 'tag', receipt_handle: '555555', message_id: '777777', tag: 'animal', request_success: null})
  
      })
     test('check getFalseRequest type', () => {

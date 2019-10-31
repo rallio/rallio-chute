@@ -2,11 +2,6 @@ const {pollMessages} = require('../app/poll-messages')
 var assert = require('assert')
 
 describe('when a queue has items in it', () => {
-   
-       
-    let emptyQueue = {
-        RequestId: "40bc042c-bc9f-5a96-bdbc-52076d5d9afe"
-    }
     let queue = {
     Messages: [
         {
@@ -17,17 +12,17 @@ describe('when a queue has items in it', () => {
     ]
 }
   
- let longPoller = () => new Promise(function(resolve) {
+    let longPoller = () => new Promise(function(resolve) {
      return resolve(queue)
   })
-  let removeFromSqs = () => new Promise(function(resolve) {
+    let removeFromSqs = () => new Promise(function(resolve) {
       const sqsResponse = {
         RequestId:"29c1149d-e964-5bd7-a217-42b1fc11cc18"
       }
     return resolve(sqsResponse)
  })
  
- let handleMessages = function(){ 
+    let handleMessages = function(){ 
     return [
     {account_id:1,
     account_name:"Bean Me Up LA",
