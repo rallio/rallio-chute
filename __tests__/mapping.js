@@ -26,9 +26,4 @@ describe ('test mapping ', () => {
     test('check if record exists', async () => { 
        expect(typeof record).toBe('object')
     })
-    test('tag has null request_success value', async () => { 
-        let result = await chuteMapping.chuteMapping(message, message.db, message.pkName)
-        
-        expect(result.album_code).toBe(1111)
-     })
 })
