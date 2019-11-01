@@ -7,7 +7,6 @@ async function checkDB (data) {
       },
       raw: true,
     })
-   
     return record
   }
   

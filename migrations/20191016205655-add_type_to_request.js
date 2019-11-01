@@ -7,5 +7,8 @@ module.exports = {
       'type',
       Sequelize.STRING
     )
+  },
+  down: (queryInterface) => {
+    return queryInterface.removeColumn('Requests','type');
   }
 };

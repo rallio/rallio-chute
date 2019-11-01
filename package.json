@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "test": "yarn && yarn jest",
-    "test:ci": "yarn && yarn pg-test:start && yarn sqs-local:start && yarn jest",
+    "test:ci": "yarn && yarn pg-test:start && sleep 10 && yarn pg-test:migrate && yarn sqs-local:start && yarn jest",
     "jest": "PORT=3001; npx jest --config --runInBand",
     "lint": "npx eslint .",
     "send-message": "node app/sqs-send-message.js",
@@ -25,10 +25,12 @@
     "pg-local:start": "npx docker run --name chute-postgres -e POSTGRES_DB=chute_development -d -p 5433:5432 postgres",
     "pg-local:stop": "npx docker ps -a | grep -E 'chute-postgres' | awk '{print $1}' | xargs npx docker stop",
     "pg-local:remove": "npx docker ps -a | grep -E 'chute-postgres' | awk '{print $1}' | xargs npx docker container rm",
+    "pg-test:setup": "pg-test:start && yarn pg-test:migrate",
+    "pg-test:migrate": "NODE_ENV=test yarn db:migrate",
     "pg-test:start": "npx docker run --name chute-postgres-test -e POSTGRES_DB=chute_test -d -p 5434:5432 postgres",
     "pg-test:stop": "npx docker ps -a | grep -E 'chute-postgres-test' | awk '{print $1}' | xargs npx docker stop",
     "pg-test:remove": "npx docker ps -a | grep -E 'chute-postgres-test' | awk '{print $1}' | xargs npx docker container rm",
-    "pg-test-restart": "yarn pg-test:stop && yarn pg-test:remove && yarn pg-test:start",
+    "pg-test-reset": "yarn pg-test:stop && yarn pg-test:remove && yarn pg-test:setup",
     "env": "cp .env-sample .env"
   },
   "dependencies": {

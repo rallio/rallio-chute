@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const AWS = require('aws-sdk');
 require('dotenv').config();
 
@@ -40,7 +41,6 @@ const removeFromSqs = ({
       if (err) {
         return reject({ message: err });
       }
-
       resolve(data);
     };
 

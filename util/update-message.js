@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 var request = require("request");
 require('dotenv').config();
 
@@ -5,19 +6,24 @@ const {
   CHUTE_OAUTH_TOKEN
 } = process.env;
 
-async function sendMessage (data) {
+async function sendDetails ({data,firstResult}) {
+  const id = firstResult.data[0].id
+  const tags = data.all_tags.split(',')
   return new Promise((resolve, reject) => {
     console.log("DATA", data);
 
     const options = {
-      method: 'POST',
-      url: `http://api.getchute.com/v2/albums/${data.album}/assets/upload`,
+      method: 'PUT',
+      url: `https://api.getchute.com/v2/albums/${data.album}/assets/${id}`,
       headers:
       { 'Content-Type': 'application/json' },
       body: {
-      file_url: data.file_url || data.url,
-      oauth_token: CHUTE_OAUTH_TOKEN
-      },
+        oauth_token: CHUTE_OAUTH_TOKEN,
+        asset: {    
+            tags: tags,
+            caption: data.description
+        }
+    },
       json: true
     };
 
@@ -38,4 +44,4 @@ async function sendMessage (data) {
     });
   });
 }
-module.exports = { sendMessage };
+module.exports = { sendDetails };

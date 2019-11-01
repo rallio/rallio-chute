@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 require('dotenv').config();
 
 const  AWS = require('aws-sdk');
@@ -7,15 +8,14 @@ const {
   AWS_REGION,
   AWS_SQS_ACCESS_KEY_ID,
   AWS_SQS_SECRET_ACCESS_KEY,
-  AWS_SQS_QUEUE_URL,
   LONG_POLLING_WAIT_TIME,
   MAX_NUMBER_OF_MESSAGES = 1
 } = process.env;
 
-module.exports = ({
+const longPoller = ({
+  MaxNumberOfMessages = 1,
+  QueueUrl = process.env.AWS_SQS_QUEUE_URL,
   VisibilityTimeout = 0,
-  MaxNumberOfMessages = MAX_NUMBER_OF_MESSAGES,
-  QueueUrl = AWS_SQS_QUEUE_URL,
   WaitTimeSeconds = LONG_POLLING_WAIT_TIME
 } = {}) => {
   const params = {
@@ -50,3 +50,4 @@ module.exports = ({
     });
   });
 };
+module.exports={longPoller}

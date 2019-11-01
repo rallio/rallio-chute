@@ -6,15 +6,15 @@ const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require('../config/db.js');
-const { database, username, password, host, dialect, url } = config[env];
+const { database, username, password, host, dialect, url, port} = config[env];
 const db = {};
 
 let sequelize;
 if (url) {
   sequelize = new Sequelize(url, { dialect });
 } else {
-  sequelize = new Sequelize(database, username, password, {
-    host, dialect, logging: false
+  sequelize = new Sequelize(database, username, password,{
+    host, port, dialect, logging: false
   });
 }
 
