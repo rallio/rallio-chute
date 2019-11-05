@@ -13,6 +13,11 @@ const {
 } = process.env;
 
 if (NODE_ENV !== 'test') {
+  console.info('updating sqs config...', {
+    accessKeyId: AWS_SQS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY,
+    region: AWS_REGION,
+  })
   if (AWS_SQS_ACCESS_KEY_ID) {
     AWS.config.update({ accessKeyId: AWS_SQS_ACCESS_KEY_ID });
   }
