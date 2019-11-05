@@ -3,12 +3,12 @@ require('dotenv').config();
 const {
   AWS_SQS_QUEUE_URL,
   LONG_POLLING_WAIT_TIME,
-  MAX_NUMBER_OF_MESSAGES = 1
+  MAX_NUMBER_OF_MESSAGES = 10
 } = process.env;
 
 const longPoller = ({
   VisibilityTimeout = 0,
-  MaxNumberOfMessages = MAX_NUMBER_OF_MESSAGES || 1,
+  MaxNumberOfMessages = Number(MAX_NUMBER_OF_MESSAGES),
   QueueUrl = AWS_SQS_QUEUE_URL,
   WaitTimeSeconds = LONG_POLLING_WAIT_TIME,
   sqs = require('../util/sqs').sqs()
