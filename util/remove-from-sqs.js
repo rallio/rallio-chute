@@ -10,6 +10,12 @@ const {
   AWS_SQS_QUEUE_URL
 } = process.env;
 
+console.info('remove-from-sqs AWS config', {
+  accessKeyId: AWS_SQS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY,
+  region: AWS_REGION,
+})
+
 if (AWS_SQS_ACCESS_KEY_ID) {
   AWS.config.update({
     accessKeyId: AWS_SQS_ACCESS_KEY_ID

@@ -6,25 +6,21 @@ const accessKeyId = process.env.AWS_SQS_ACCESS_KEY_ID;
 const secretAccessKey = process.env.AWS_SQS_SECRET_ACCESS_KEY;
 const region = process.env.AWS_REGION;
 
-console.info('updating AWS config...');
+console.info('sqs.js AWS config...', {
+  apiVersion,
+  accessKeyId,
+  secretAccessKey,
+  region
+});
 
 if (accessKeyId) {
   AWS.config.update({ accessKeyId });
-  console.info({
-    accessKeyId
-  })
 }
 if (secretAccessKey) {
   AWS.config.update({ secretAccessKey });
-  console.info({
-    secretAccessKey
-  })
 }
 if (region) {
   AWS.config.update({ region });
-  console.info({
-    region
-  })
 }
 
 module.exports = () =>

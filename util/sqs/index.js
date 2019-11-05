@@ -32,6 +32,12 @@ const sqs = ({ endpoint } = {}) => {
     hackAWSCredentials();
   }
 
+  console.info('util/sqs AWS config', {
+    accessKeyId: AWS_SQS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY,
+    region: AWS_REGION,
+  })
+
   return new AWS.SQS({
     apiVersion: AWS_API_VERSION,
     ...(endpoint && { endpoint })
