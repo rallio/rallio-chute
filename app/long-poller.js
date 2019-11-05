@@ -7,7 +7,6 @@ const {
 } = process.env;
 
 const longPoller = ({
-  QueueUrl = process.env.AWS_SQS_QUEUE_URL,
   VisibilityTimeout = 0,
   MaxNumberOfMessages = MAX_NUMBER_OF_MESSAGES || 1,
   QueueUrl = AWS_SQS_QUEUE_URL,
