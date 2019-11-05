@@ -1,15 +1,16 @@
-const {handleMessages} = require('./handle-messages')
-const {longPoller} = require('./long-poller')
-const {removeFromSqs} = require('../util/remove-from-sqs')
-const pollMessages = ({
-    poller = longPoller,
-    remove = removeFromSqs,
-    handle = handleMessages
-} = {}) => poller().then(async (response = {}) => {
+/* eslint-disable no-console */
+require('dotenv').config();
 
-  const {
-    Messages
-  } = response;
+const pollMessages = ({
+  handleMessages = require('./handle-messages').handleMessages,
+  QueueUrl = process.env.AWS_SQS_QUEUE_URL,
+  longPoller = require('./long-poller').longPoller,
+  removeFromSqs = require('../util/remove-from-sqs').removeFromSqs,
+  checkDB = require('./check-existing').checkDB,
+  checkRetry = require('./check-retry').checkRetry,
+  sendToChute = require('./send-to-chute').sendToChute,
+}) => longPoller({ QueueUrl }).then(async (response) => {
+  const { Messages } = response;
 
   if (!Messages) {
     return 0;
@@ -17,21 +18,14 @@ const pollMessages = ({
 
   let mappedMessages;
   try {
+    // debugger
     mappedMessages = Messages.map((m) => {
-      const {
-        ReceiptHandle,
-        MessageId
-      } = m;
+      const { ReceiptHandle, MessageId } = m;
 
-      return {
-        ...JSON.parse(m.Body),
-        ReceiptHandle,
-        MessageId
-      };
+      return { ...JSON.parse(m.Body), ReceiptHandle, MessageId };
     });
   } catch (e) {
-    
-    console.error('no body', e);
+    console.error('no body');
     return Infinity;
   }
   if (!mappedMessages) {
@@ -39,25 +33,28 @@ const pollMessages = ({
     return 0;
   }
 
-  const messagesProcessed = await handle({messages: mappedMessages});
+  const messagesProcessed = await Promise.all(handleMessages({
+    messages: mappedMessages,
+    checkDB,
+    checkRetry,
+    sendToChute,
+  })).catch(console.error);
 
   if (!messagesProcessed) {
     return Infinity;
   }
-  
-  const messageRemovedPromises = messagesProcessed.map(message => {
-    return remove({
-      ReceiptHandle: message.ReceiptHandle
-    });
-  });
-  
-  await Promise.all(messageRemovedPromises).catch(console.error); // TODO AWS error handle
 
-//   processedMessagesCount += messageRemovedPromises.length;
+  const messageRemovedPromises = messagesProcessed.map(message => {
+    return removeFromSqs({
+      QueueUrl,
+      ReceiptHandle: message.ReceiptHandle
+    })
+    .catch(console.error);
+  });
+
+  await Promise.all(messageRemovedPromises).catch(console.error);
 
   return messageRemovedPromises.length;
 });
 
-
-
-module.exports = { pollMessages }
+module.exports = { pollMessages };

@@ -3,19 +3,32 @@ const { pollMessages } = require('./poll-messages')
 
 let pollCount = 0;
 let processedMessagesCount = 0;
-const start = async (poll = pollMessages) => {
-  
-  while(await poll() > 0) {
-    console.log('were still waiting...', ++pollCount);
+
+const start = async ({
+  poll = pollMessages,
+  handleMessages = require('./handle-messages').handleMessages,
+  sendToChute = require('./send-to-chute').sendToChute,
+  QueueUrl = process.env.AWS_QUEUE_URL
+} = {}) => {
+  try {
+    while(await poll({
+      handleMessages,
+      sendToChute,
+      QueueUrl,
+    }).then(messagesCount => {
+      processedMessagesCount += messagesCount;
+      return messagesCount;
+    }) > 0) {
+      pollCount++;
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
   }
 
   console.log('The queue is empty', {pollCount, processedMessagesCount});
 
   return {pollCount, processedMessagesCount}
 };
-
-
-
-// start();
 
 module.exports = { start };
