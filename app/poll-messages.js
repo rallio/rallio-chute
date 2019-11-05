@@ -1,15 +1,14 @@
 /* eslint-disable no-console */
 require('dotenv').config();
-const longPoller = require('./long-poller');
-const { removeFromSqs } = require('./remove-from-sqs');
-
-const {
-  AWS_SQS_QUEUE_URL,
-} = process.env;
 
 const pollMessages = ({
   handleMessages = require('./handle-messages').handleMessages,
-  QueueUrl = AWS_SQS_QUEUE_URL
+  QueueUrl = process.env.AWS_SQS_QUEUE_URL,
+  longPoller = require('./long-poller').longPoller,
+  removeFromSqs = require('../util/remove-from-sqs').removeFromSqs,
+  checkDB = require('./check-existing').checkDB,
+  checkRetry = require('./check-retry').checkRetry,
+  sendToChute = require('./send-to-chute').sendToChute,
 }) => longPoller({ QueueUrl }).then(async (response) => {
   const { Messages } = response;
 
@@ -19,6 +18,7 @@ const pollMessages = ({
 
   let mappedMessages;
   try {
+    // debugger
     mappedMessages = Messages.map((m) => {
       const { ReceiptHandle, MessageId } = m;
 
@@ -32,15 +32,33 @@ const pollMessages = ({
     console.error('no messages');
     return 0;
   }
-
-  const messagesProcessed = await Promise.all(handleMessages(mappedMessages)).catch(console.error);
+  // debugger
+  const messagesProcessed = await Promise.all(handleMessages({
+    messages: mappedMessages,
+    checkDB,
+    checkRetry,
+    sendToChute,
+  })).catch(console.error);
 
   if (!messagesProcessed) {
     return Infinity;
   }
 
+  // debugger
   const messageRemovedPromises = messagesProcessed.map(message => {
-    return removeFromSqs({ ReceiptHandle: message.ReceiptHandle });
+    return removeFromSqs({ ReceiptHandle: message.ReceiptHandle })
+    .catch(err => {
+      console.error(err)
+      debugger
+      /*
+      "The security token included in the request is invalid."
+      */
+    })
+    .then(resp => {
+      console.log('remove from sqs', resp)
+      debugger
+      return resp
+    });
   });
 
   await Promise.all(messageRemovedPromises).catch(console.error); // TODO AWS error handle

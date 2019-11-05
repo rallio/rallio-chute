@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "test": "yarn && yarn jest",
+    "test": "yarn && yarn jest --bail",
     "test:ci": "yarn && yarn pg-test:start && sleep 10 && yarn pg-test:migrate && yarn sqs-local:start && yarn jest",
     "jest": "PORT=3001; npx jest --config --runInBand",
     "lint": "npx eslint .",

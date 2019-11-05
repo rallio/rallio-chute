@@ -31,9 +31,11 @@ describe('app/start', () => {
     expect(typeof sendMessageResponse.MD5OfMessageBody).toBe('string')
     expect(typeof sendMessageResponse.MessageId).toBe('string')
     expect(typeof sendMessageResponse.ResponseMetadata).toBe('object')
+
+    // debugger
     let response = await start({
-      handleMessages: [Promise.resolve({})],
-      sendToChute: Promise.resolve({}),
+      // handleMessages: () => [Promise.resolve({ ...sendMessageResponse, ReceiptHandle: '...'})],
+      sendToChute: () => Promise.resolve({}),
       QueueUrl
     }).catch(err => err)
 

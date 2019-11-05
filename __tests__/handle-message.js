@@ -1,7 +1,6 @@
 const {handleMessages} = require('../app/handle-messages')
 
-describe('when message sent to handdle message', () => { 
-
+describe('when message sent to handle message', () => { 
    let messages = [{
     account_id:1,
     account_name:"Bean Me Up LA",
@@ -17,33 +16,33 @@ describe('when message sent to handdle message', () => {
     ReceiptHandle:"AQEBX01TLQqicbc602FbiGPhTuJ1yglFd+ak4j60hzOTW00zNNKYoqhavat802FXN94VEmpOm0gGegAZ8LR9MBtRMMjMTEPPlNW/engIC/ZnOAph6OkxFEo4ba3HmMXf0GEVsQqUJcy1BZ6ksVClnRjcsY88UD5nYRu+JiqyRNn7XWUONw9bJGm0ueuQLH5X8gJM4oTDpXQvjT29U3C221Z9CcwTzrvyw/R1BxSUS76IprmTAsdlAkVQa5C8V+lubxmkEHO+I71jUChLzj4l/2Lqv2OCkkKsM3ekIpboRvCtNAw8uYiYVfbXsWABinM2sImvtbIvfTZ2MOliSbpNx7rraybKyepcuKan1eT1CuuE9XVydztraTeucvSP8v8HhiJa8uLiwOVCBrcm2AqT5eX4cMlmFRni8XPuYGjOchThaJk="
   }]
 
- async function checkDB(){ 
-    return []
- }
+   async function checkDB(){ 
+      return []
+   }
 
- async function checkDBTrue(){ 
-    return ["oneItem"]
- }
+   async function checkDBTrue(){ 
+      return ["oneItem"]
+   }
 
- async function sendToChute(){
-     Promise.resolve({
-        code:201,
-        href:"http://api.getchute.com/v2/albums/2691441/assets/upload",
-        method:"POST",
-        title:"AlbumAsset Details",
-        version:2
-     })
- }
+   async function sendToChute(){
+      return Promise.resolve({
+         code:201,
+         href:"http://api.getchute.com/v2/albums/2691441/assets/upload",
+         method:"POST",
+         title:"AlbumAsset Details",
+         version:2
+      })
+   }
  
-    test('removes from queue', async () => {
-        const messageResponse = await handleMessages({messages: messages, db: checkDB, send: sendToChute})
-     
-        expect(messageResponse).toHaveLength(1)
-    })
+   test('removes from queue', async () => {
+      const messageResponse = await handleMessages({messages, checkDB, sendToChute})
+   
+      expect(messageResponse).toHaveLength(1)
+   })
 
-    test('removes from queue check existing true', async () => {
-        const messageResponse = await handleMessages({messages: messages, db: checkDBTrue, send: sendToChute})
-     
-        expect(messageResponse).toHaveLength(1)
-    })
+   test('removes from queue check existing true', async () => {
+      const messageResponse = await handleMessages({ messages, checkDB: checkDBTrue, sendToChute})
+   
+      expect(messageResponse).toHaveLength(1)
+   })
 })

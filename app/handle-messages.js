@@ -2,7 +2,7 @@ const handleMessages = ({
   messages = [],
   checkDB = require('./check-existing').checkDB,
   checkRetry = require('./check-retry').checkRetry,
-  sendToChute = require('./send-message').sendToChute
+  sendToChute = require('./send-to-chute').sendToChute
 } = {}) => {
   return messages.map(async (message) => {
     const { photo_tags = [] } = message;
