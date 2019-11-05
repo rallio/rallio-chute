@@ -22,7 +22,6 @@ const start = async ({
       pollCount++;
     }
   } catch (err) {
-    debugger
     console.error(err);
     throw err;
   }
