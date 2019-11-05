@@ -32,7 +32,7 @@ const pollMessages = ({
     console.error('no messages');
     return 0;
   }
-  // debugger
+
   const messagesProcessed = await Promise.all(handleMessages({
     messages: mappedMessages,
     checkDB,
@@ -44,27 +44,15 @@ const pollMessages = ({
     return Infinity;
   }
 
-  // debugger
   const messageRemovedPromises = messagesProcessed.map(message => {
     return removeFromSqs({
       QueueUrl,
       ReceiptHandle: message.ReceiptHandle
     })
-    .catch(err => {
-      console.error(err)
-      // debugger
-      /*
-      "The security token included in the request is invalid."
-      */
-    })
-    .then(resp => {
-      console.log('remove from sqs', resp)
-      // debugger
-      return resp
-    });
+    .catch(console.error);
   });
 
-  await Promise.all(messageRemovedPromises).catch(console.error); // TODO AWS error handle
+  await Promise.all(messageRemovedPromises).catch(console.error);
 
   return messageRemovedPromises.length;
 });

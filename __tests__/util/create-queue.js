@@ -15,10 +15,6 @@ describe('util/sqs/create-queue', () => {
     let QueueName = 'hello-sqs'
     let response = await createQueue({ QueueName }).catch(err => err)
 
-    console.log({
-      response
-    })
-
     expect(typeof response).toBe('object')
     expect(typeof response.QueueUrl).toBe('string')
     expect(response.QueueUrl).toEqual(`http://127.0.0.1:9324/queue/${QueueName}`)

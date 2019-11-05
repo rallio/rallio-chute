@@ -1,9 +1,5 @@
 const {pollMessages} = require('../app/poll-messages')
-// const {
-//   createQueue
-// } = require('../../util/sqs/create-queue')
 const {createQueue} = require('../util/sqs/create-queue')
-// var assert = require('assert')
 
 describe('when a queue has items in it', () => {
   let queue = {
