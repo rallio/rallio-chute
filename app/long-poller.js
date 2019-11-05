@@ -24,11 +24,12 @@ const longPoller = ({
   console.log(`looking for up to ${MaxNumberOfMessages} message(s)...`, params);
 
   return new Promise((resolve, reject) => {
+    // debugger
     sqs.receiveMessage(params, (err, data) => {
       if (err) {
         return reject(err);
       }
-
+      // debugger
       return resolve(data);
     });
   });

@@ -32,15 +32,13 @@ describe('app/start', () => {
     expect(typeof sendMessageResponse.MessageId).toBe('string')
     expect(typeof sendMessageResponse.ResponseMetadata).toBe('object')
 
-    // debugger
     let response = await start({
-      // handleMessages: () => [Promise.resolve({ ...sendMessageResponse, ReceiptHandle: '...'})],
       sendToChute: () => Promise.resolve({}),
       QueueUrl
     }).catch(err => err)
 
     expect(typeof response).toBe('object')
-    expect(response.pollCount).toEqual(1)
-    expect(response.processedMessagesCount).toEqual(1)
+    expect(response.pollCount >= 1).toBe(true)
+    expect(response.processedMessagesCount >= 1).toBe(true)
   })
 })

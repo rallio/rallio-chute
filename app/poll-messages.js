@@ -46,17 +46,20 @@ const pollMessages = ({
 
   // debugger
   const messageRemovedPromises = messagesProcessed.map(message => {
-    return removeFromSqs({ ReceiptHandle: message.ReceiptHandle })
+    return removeFromSqs({
+      QueueUrl,
+      ReceiptHandle: message.ReceiptHandle
+    })
     .catch(err => {
       console.error(err)
-      debugger
+      // debugger
       /*
       "The security token included in the request is invalid."
       */
     })
     .then(resp => {
       console.log('remove from sqs', resp)
-      debugger
+      // debugger
       return resp
     });
   });
