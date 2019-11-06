@@ -16,21 +16,11 @@ console.info('remove-from-sqs AWS config', {
   region: AWS_REGION,
 })
 
-if (AWS_SQS_ACCESS_KEY_ID) {
-  AWS.config.update({
-    accessKeyId: AWS_SQS_ACCESS_KEY_ID
-  });
-}
-if (AWS_SQS_SECRET_ACCESS_KEY) {
-  AWS.config.update({
-    secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY
-  });
-}
-if (AWS_REGION) {
-  AWS.config.update({
-    region: AWS_REGION
-  });
-}
+AWS.config.update({
+  accessKeyId: AWS_SQS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY,
+  region: AWS_REGION,
+});
 
 const sqs = new AWS.SQS({ apiVersion: AWS_API_VERSION });
 

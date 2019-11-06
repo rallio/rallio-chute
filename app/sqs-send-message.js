@@ -8,26 +8,14 @@ const {
   AWS_REGION,
   AWS_SQS_ACCESS_KEY_ID,
   AWS_SQS_SECRET_ACCESS_KEY,
-  AWS_SQS_QUEUE_URL,
-  NODE_ENV = 'development'
+  AWS_SQS_QUEUE_URL
 } = process.env;
 
-if (NODE_ENV !== 'test') {
-  console.info('sqs-send-message updating sqs config...', {
-    accessKeyId: AWS_SQS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY,
-    region: AWS_REGION,
-  })
-  if (AWS_SQS_ACCESS_KEY_ID) {
-    AWS.config.update({ accessKeyId: AWS_SQS_ACCESS_KEY_ID });
-  }
-  if (AWS_SQS_SECRET_ACCESS_KEY) {
-    AWS.config.update({ secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY });
-  }
-  if (AWS_REGION) {
-    AWS.config.update({ region: AWS_REGION });
-  }
-}
+AWS.config.update({
+  accessKeyId: AWS_SQS_ACCESS_KEY_ID,
+  secretAccessKey: AWS_SQS_SECRET_ACCESS_KEY,
+  region: AWS_REGION,
+});
 
 const {
   DelaySeconds = 0,

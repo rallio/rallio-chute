@@ -13,15 +13,11 @@ console.info('sqs.js AWS config...', {
   region
 });
 
-if (accessKeyId) {
-  AWS.config.update({ accessKeyId });
-}
-if (secretAccessKey) {
-  AWS.config.update({ secretAccessKey });
-}
-if (region) {
-  AWS.config.update({ region });
-}
+AWS.config.update({
+  accessKeyId,
+  secretAccessKey,
+  region,
+});
 
 module.exports = () =>
   new AWS.SQS({ apiVersion });
