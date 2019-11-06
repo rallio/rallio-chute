@@ -48,12 +48,9 @@ const handleMessages = ({
       description: message.photo_description,
       all_tags: message.photo_tags
 
+
     };
 
-    // console.info('handle-messages location object', {
-    //   locationObject
-    // });
-   
     const processedLocation = sendToChute({message:locationObject});
     const promises = [
       processedTags.then(() => true),
