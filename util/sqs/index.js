@@ -3,9 +3,9 @@ require('dotenv').config();
 
 const {
   AWS_API_VERSION = '2012-11-05',
-  AWS_SQS_ACCESS_KEY_ID,
-  AWS_SQS_SECRET_ACCESS_KEY,
   AWS_REGION = 'us-east-1',
+  AWS_SQS_ACCESS_KEY_ID = 'abc123',
+  AWS_SQS_SECRET_ACCESS_KEY = 's3cr3t',
 } = process.env;
 
 const sqs = ({ endpoint } = {}) => {
