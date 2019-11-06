@@ -24,6 +24,7 @@ const handleMessages = ({
         pkName: 'tag',
         retry: retry
       };
+      console.info('handle-messages tag and message object', {tag, messageObject});
 
       return sendToChute(messageObject);
     }));
@@ -42,6 +43,10 @@ const handleMessages = ({
       pkName: 'account_id',
       retry: retry
     };
+
+    console.info('handle-messages location object', {
+      locationObject
+    });
 
     const processedLocation = sendToChute(locationObject);
     const promises = [
