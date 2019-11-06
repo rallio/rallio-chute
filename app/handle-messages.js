@@ -44,9 +44,9 @@ const handleMessages = ({
       retry: retry
     };
 
-    console.info('handle-messages location object', {
-      locationObject
-    });
+    // console.info('handle-messages location object', {
+    //   locationObject
+    // });
 
     const processedLocation = sendToChute(locationObject);
     const promises = [
