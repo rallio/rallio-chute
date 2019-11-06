@@ -1,6 +1,6 @@
 const Models = require('../models/index')
 async function getFalse (message_id, tag, type, account_id) {
-    console.log("****IN get false ", message_id)
+   
     const model = Models.Request
     if(type === 'location'){
       const record = model.findOne({
@@ -31,7 +31,7 @@ async function getFalse (message_id, tag, type, account_id) {
   }
 
   async function getTrue(id){
-    console.log("****IN get false ", id)
+  
     const model = Models.Request
   
       const record = model.findAll({

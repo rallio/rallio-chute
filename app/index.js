@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 const { pollMessages } = require('./poll-messages')
-
+const { delay } =require('../util/delay')
 let pollCount = 0;
 let processedMessagesCount = 0;
 
@@ -15,9 +15,15 @@ const start = async ({
       handleMessages,
       sendToChute,
       QueueUrl,
-    }).then(messagesCount => {
-      processedMessagesCount += messagesCount;
-      return messagesCount;
+    }).catch(async(err) => {
+      console.log("TIMEOUT ", err)
+      await delay(15000)
+      return Infinity
+    }).then(response => {
+      if(Number.isFinite(response)){
+        processedMessagesCount += response;
+      }
+      return response
     }) > 0) {
       pollCount++;
     }

@@ -26,11 +26,11 @@ const pollMessages = ({
     });
   } catch (e) {
     console.error('no body');
-    return Infinity;
+    Promise.reject(e) 
   }
   if (!mappedMessages) {
     console.error('no messages');
-    return 0;
+    Promise.reject('no messages') 
   }
 
   const messagesProcessed = await Promise.all(handleMessages({
@@ -39,12 +39,14 @@ const pollMessages = ({
     checkRetry,
     sendToChute,
   })).catch(console.error);
-
+console.log("#####messagesProcessed", messagesProcessed)
   if (!messagesProcessed) {
-    return Infinity;
-  }
+    Promise.reject('unable to process messages')
+  } 
+  console.log("#####QueueUrl", QueueUrl)
 
   const messageRemovedPromises = messagesProcessed.map(message => {
+    console.log("#####message", message)
     return removeFromSqs({
       QueueUrl,
       ReceiptHandle: message.ReceiptHandle
