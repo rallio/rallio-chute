@@ -8,9 +8,12 @@ const {saveSuccess} = require('./save-success');
 const {getFalse} = require('./get-false-request');
 let savedToDatabaseResult;
 async function sendToChute ({message, send = sendMessage, details = sendDetails, save = saveSuccess}) {
-  const mappedResult = await chuteMapping({pk: message.pk, modelName: message.db, pkName: message.pkName}).catch(console.error);
 
-console.log("mappedResult!!!!!!", mappedResult)
+  const mappedResult = await chuteMapping({pk: message.pk, modelName: message.db, pkName: message.pkName}).catch(() => {
+  
+  });
+
+
 
   if (!mappedResult) {
     console.info('a location or tag was found that doesnt have any matching maps in the DB.', message);
@@ -51,7 +54,6 @@ console.log("mappedResult!!!!!!", mappedResult)
     };
 
     const chuteResult = await send(newData).catch(console.error);
-    console.log("CHUTE RESULT!!!!!!!!!!!!!", chuteResult)
 
     if (!chuteResult.response) { 
       
@@ -59,6 +61,11 @@ console.log("mappedResult!!!!!!", mappedResult)
         message: 'There was no chute result',
         data: newData
       });
+    }
+    const successData =  await save(newData);
+
+    if (!successData) {
+      return Promise.reject('this stays in the queue');
     }
 
     const chuteDetailsResult = await details({data: newData, firstResult:chuteResult})
@@ -68,12 +75,6 @@ console.log("mappedResult!!!!!!", mappedResult)
         message: 'There was no chute result',
         data: newData
       });
-    }
-
-    const successData =  await save(newData);
-
-    if (!successData) {
-      return Promise.reject('this stays in the queue');
     }
 
     return chuteResult;
@@ -91,6 +92,12 @@ console.log("mappedResult!!!!!!", mappedResult)
           data: newData
         });
       }
+      const successData = await save(newData);
+
+      if (!successData) {
+        
+        return Promise.reject('this stays in the queue');
+      }
       
       const chuteDetailsResult = await details({data: newData, firstResult:chuteResult})
       if (!chuteDetailsResult) {   
@@ -100,12 +107,6 @@ console.log("mappedResult!!!!!!", mappedResult)
         });
       }
 
-      const successData = await save(newData);
-
-      if (!successData) {
-        
-        return Promise.reject('this stays in the queue');
-      }
 
       return chuteResult;
     }

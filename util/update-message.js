@@ -7,10 +7,12 @@ const {
 } = process.env;
 
 async function sendDetails ({data,firstResult}) {
+  console.log("$$$$$$DATA", data);
+  console.trace()
   const id = firstResult.data[0].id
   const tags = data.all_tags.split(',')
   return new Promise((resolve, reject) => {
-    console.log("DATA", data);
+    
 
     const options = {
       method: 'PUT',

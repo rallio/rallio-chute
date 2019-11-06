@@ -8,7 +8,6 @@ const {
 
 async function sendMessage (data) {
   return new Promise((resolve, reject) => {
-    console.log("DATA", data);
 
     const options = {
       method: 'POST',

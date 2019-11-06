@@ -22,11 +22,14 @@ const handleMessages = ({
         db: 'TagMap',
         pk: tag,
         pkName: 'tag',
-        retry: retry
-      };
-      console.info('handle-messages tag and message object', {tag, messageObject});
+        retry: retry,
+        description: message.photo_description,
+        all_tags: message.photo_tags
 
-      return sendToChute(messageObject);
+      };
+      // console.info('handle-messages tag and message object', {tag, messageObject});
+
+      return sendToChute({message: messageObject});
     }));
 
     const locationObject = {
@@ -41,14 +44,14 @@ const handleMessages = ({
       db: 'LocationMap',
       pk: message.account_id,
       pkName: 'account_id',
-      retry: retry
+      retry: retry,
+      description: message.photo_description,
+      all_tags: message.photo_tags
+
+
     };
 
-    // console.info('handle-messages location object', {
-    //   locationObject
-    // });
-
-    const processedLocation = sendToChute(locationObject);
+    const processedLocation = sendToChute({message:locationObject});
     const promises = [
       processedTags.then(() => true),
       processedLocation
