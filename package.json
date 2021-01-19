@@ -1,5 +1,5 @@
 {
-  "name": "rallio-chute",
+  "name": "rallio-chute-service",
   "version": "1.0.0",
   "main": "index.js",
   "license": "UNLICENSED",
@@ -35,24 +35,24 @@
     "env": "cp .env-sample .env"
   },
   "dependencies": {
-    "aws-sdk": "^2.556.0",
-    "dotenv": "^8.1.0",
+    "aws-sdk": "^2.828.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jest-cli": "^24.9.0",
-    "node-fetch": "^2.6.0",
-    "pg": "^7.12.1",
-    "request": "^2.88.0",
-    "sequelize": "^5.19.4",
-    "sequelize-cli": "^5.5.1"
+    "jest-cli": "^26.6.3",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.5.1",
+    "request": "^2.88.2",
+    "sequelize": "^6.4.0",
+    "sequelize-cli": "^6.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "babel-jest": "^24.9.0",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-jest": "^26.6.3",
     "docker-cli": "^0.0.2",
-    "eslint": "^6.5.1",
-    "faker": "^4.1.0",
-    "jest": "^24.9.0",
-    "nodemon": "^1.19.3"
+    "eslint": "^7.18.0",
+    "faker": "^5.1.0",
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7"
   }
 }
