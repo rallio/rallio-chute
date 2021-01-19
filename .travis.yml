@@ -4,6 +4,9 @@ node_js:
 dist: focal
 addons:
   postgresql: '12'
+  apt:
+    sources:
+      - docker: 'deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable'
 services:
 - docker
 before_install:
